@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import bookExample from "./assets/bookExample.jpg";
+
+
+
 
 
 
@@ -87,6 +91,7 @@ function App() {
         .then((response) => {
           var res = response.data;
           var tempData = data;
+          // eslint-disable-next-line
           tempData.map((book): void => {
             //variavel temporária para guardar os dados das alterações para depois mapear e aferir os registos alterados.
             if (book.id === selectedBook.id) {
@@ -127,7 +132,7 @@ function App() {
   
   return (
     <div className="App">
-      <br />
+      <br />{/*
       <h1> Book Catalog</h1>
 
       <header>
@@ -206,7 +211,50 @@ function App() {
             )}
           </tbody>
         </table>
+      </div> */}
+
+<header>
+        <img src={""} alt="" style={{ width: "70px" }} />
+        <button
+          type="button"
+          className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          onClick={() => onOffModalNew()}
+        >
+          Add Book
+        </button>
+      </header>
+           
+<div className="bg-white">
+      <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 className="sr-only">Products</h2>
+
+        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+        {data.map(
+              (book: {
+                id: number;
+                isbn: string;
+                title: string;
+                author: string;
+                price: number;
+              }) => (
+            // eslint-disable-next-line no-template-curly-in-string
+            <div key={book.id}>
+              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+                <a href={"www.google.pt/"} className="group"> <img
+                  src={bookExample}
+                  alt=""
+                  className="h-full w-full object-cover object-center group-hover:opacity-75"
+                /></a>
+              </div>
+              <h2 className="mt-4 text-sm text-gray-700">{book.title}</h2>
+              <h3 className="mt-4 text-sm text-gray-700">{book.author}</h3>
+              <p className="mt-1 text-lg font-medium text-gray-900">{book.price}€</p>
+            </div>
+          ))}
+        </div>
       </div>
+    </div>
+
 
       {/* Modal Para Inserir Alunos: POST */}
       <Modal isOpen={modalNewBook}>

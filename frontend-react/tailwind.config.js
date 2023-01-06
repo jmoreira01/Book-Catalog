@@ -7,7 +7,11 @@ module.exports = {
   theme: {
     extend: {},
   },
+  corePlugins: {
+    aspectRatio: false,
+  },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 }
