@@ -3754,11 +3754,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jorge\\Desktop\\BookCatalogApp\\BookCatalogApp\\BookCatalogApp.csproj",
+      "projectUniqueName": "C:\\Users\\jorge\\Documents\\GitHub\\book-catalog\\backend-aspNet\\BookCatalogApp\\BookCatalogApp.csproj",
       "projectName": "BookCatalogApp",
-      "projectPath": "C:\\Users\\jorge\\Desktop\\BookCatalogApp\\BookCatalogApp\\BookCatalogApp.csproj",
+      "projectPath": "C:\\Users\\jorge\\Documents\\GitHub\\book-catalog\\backend-aspNet\\BookCatalogApp\\BookCatalogApp.csproj",
       "packagesPath": "C:\\Users\\jorge\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jorge\\Desktop\\BookCatalogApp\\BookCatalogApp\\obj\\",
+      "outputPath": "C:\\Users\\jorge\\Documents\\GitHub\\book-catalog\\backend-aspNet\\BookCatalogApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jorge\\AppData\\Roaming\\NuGet\\NuGet.Config",
