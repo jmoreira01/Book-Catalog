@@ -7,15 +7,15 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 
 function App() {
-  const baseUrl = "http://localhost:55655/api/Books"; //Endpoint access
+  const baseUrl = "https://localhost:7180/api/Books"; //Endpoint access
   const [data, setData] = useState([]);
   const[updateData, setUpdateData] = useState(true);
   const [selectedBook, setSelectedBook] = useState({
-    Id: "",
-    ISBN: "",
-    Title: "",
-    Author: "",
-    Price: ""
+    id: "",
+    isbn: "",
+    title: "",
+    author: "",
+    price: ""
   }); 
 
   const [modalNewBook, setModalNewBook] = useState(false); //useState para os novos alunos inseridos
@@ -58,6 +58,7 @@ function App() {
       .get(baseUrl)
       .then((response) => {
         setData(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -66,8 +67,7 @@ function App() {
 
   //
   const requestPost = async () => {
-    delete selectedBook.Id;
-
+    delete selectedBook.id;
     await axios
       .post(baseUrl, selectedBook) //Envia o request POST por axios
       .then((response) => {
@@ -83,17 +83,17 @@ function App() {
     //
     const requestPut = async () => {
       await axios
-        .put(baseUrl + "/" + selectedBook.Id, selectedBook) //Envia o request PUT por axios
+        .put(baseUrl + "/" + selectedBook.id, selectedBook) //Envia o request PUT por axios
         .then((response) => {
           var res = response.data;
           var tempData = data;
-          tempData.map((book: any): void => {
+          tempData.map((book): void => {
             //variavel temporária para guardar os dados das alterações para depois mapear e aferir os registos alterados.
-            if (book.Id === selectedBook.Id) {
-              book.ISBN = res.ISBN;
-              book.Title= res.Title;
-              book.Author= res.Author;
-              book.Price= res.Price;
+            if (book.id === selectedBook.id) {
+              book.isbn = res.isbn;
+              book.title= res.title;
+              book.author= res.author;
+              book.price= res.price;
             }
           });
           setUpdateData(true);
@@ -107,9 +107,9 @@ function App() {
 
   const requestDelete = async () => {
     await axios
-      .delete(baseUrl + "/" + selectedBook.Id) //Envia o request DELETE por axios
+      .delete(baseUrl + "/" + selectedBook.id) //Envia o request DELETE por axios
       .then((response) => {
-        setData(data.filter(book => book.Id !== response.data)); //Aplica filtro nos dados para exluir o registo que coincide com o id devolvido pela API. (!==) verifica o valor e tipo, eliminando
+        setData(data.filter(book => book.id !== response.data)); //Aplica filtro nos dados para exluir o registo que coincide com o id devolvido pela API. (!==) verifica o valor e tipo, eliminando
         setUpdateData(true);
         onOffModalDelete();
       }).catch((error) => {
@@ -125,13 +125,11 @@ function App() {
     }                       
   }, [updateData]);
   
-  
-  
-  
   return (
     <div className="App">
       <br />
       <h1> Book Catalog</h1>
+
       <header>
         <img src={""} alt="" style={{ width: "70px" }} />
         <button
@@ -142,8 +140,10 @@ function App() {
           Add Book
         </button>
       </header>
+
       <div className="overflow-x-auto table shadow-md m:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+
           <thead className="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="py-3 px-6">
@@ -161,40 +161,30 @@ function App() {
               <th scope="col" className="py-3 px-6">
                 Price
               </th>
+              <th scope="col" className="py-3 px-6">
+                Actions
+              </th>
             </tr>
           </thead>
+
           <tbody>
             {data.map(
               (book: {
-                Id: number;
-                ISBN: string;
-                Title: string;
-                Author: string;
-                Price: number;
+                id: number;
+                isbn: string;
+                title: string;
+                author: string;
+                price: number;
               }) => (
                 <tr
-                  key={book.Id}
+                  key={book.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <td className="p-4 w-4">{book.Id}</td>
-                  <th
-                    scope="row"
-                    className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap  dark:text-white"
-                  >
-                    <img className="w-10 h-10" src={""} alt="" />
-                    <div className="pl-3">
-                      <div className="text-base font-semibold">
-                        {book.ISBN}
-                      </div>
-                      <div className="font-normal text-gray-500">
-                        {book.Title}
-                      </div>
-                      <div className="font-normal text-gray-500">
-                        {book.Author}
-                      </div>
-                    </div>
-                  </th>
-                  <td className="py-4 px-6">{book.Price}</td>
+                  <td className="p-4 w-4">{book.id}</td>
+                  <td className="p-4 w-4">{book.isbn}</td>
+                  <td className="p-4 w-4">{book.title}</td>
+                  <td className="py-4 px-6">{book.author}</td>
+                  <td className="py-4 px-6">{book.price} €</td>
                   <td className="py-4 px-6">
                     <button
                       type="button"
@@ -228,7 +218,7 @@ function App() {
             <input
               type="text"
               className="form-control"
-              name="ISBN"
+              name="isbn"
               onChange={handleChange}
             />
             <label> Title: </label>
@@ -236,7 +226,7 @@ function App() {
             <input
               type="text"
               className="form-control"
-              name="Title"
+              name="title"
               onChange={handleChange}
             />
             <label> Author: </label>
@@ -244,7 +234,7 @@ function App() {
             <input
               type="text"
               className="form-control"
-              name="Author"
+              name="author"
               onChange={handleChange}
             />
             <label> Price: </label>
@@ -252,7 +242,7 @@ function App() {
             <input
               type="number"
               className="form-control"
-              name="Price"
+              name="price"
               onChange={handleChange}
             />
           </div>
@@ -300,29 +290,29 @@ function App() {
             <input
               type="number"
               className="form-control"
-              name="Id"
+              name="id"
               onChange={handleChange}
               disabled
-              value={selectedBook&& selectedBook.Id}
+              value={selectedBook && selectedBook.id}
             />
             <label> ISBN </label>
             <br />
             <input
               type="text"
               className="form-control"
-              name="ISBN"
+              name="isbn"
               onChange={handleChange}
-              value={selectedBook && selectedBook.ISBN}
+              value={selectedBook && selectedBook.isbn}
             />
 
             <label> Title: </label>
             <br />
             <input
-              type="Title"
+              type="text"
               className="form-control"
-              name="ISBN"
+              name="title"
               onChange={handleChange}
-              value={selectedBook && selectedBook.Title}
+              value={selectedBook && selectedBook.title}
             />
 
             <label> Author: </label>
@@ -330,9 +320,9 @@ function App() {
             <input
               type="text"
               className="form-control"
-              name="Author"
+              name="author"
               onChange={handleChange}
-              value={selectedBook && selectedBook.Author}
+              value={selectedBook && selectedBook.author}
             />
 
             <label> Price: </label>
@@ -340,9 +330,9 @@ function App() {
             <input
               type="number"
               className="form-control"
-              name="age"
+              name="price"
               onChange={handleChange}
-              value={selectedBook && selectedBook.Price}
+              value={selectedBook && selectedBook.price}
             />
           </div>
         </ModalBody>
@@ -385,7 +375,7 @@ function App() {
 
         <ModalBody>
           <span>
-            Confirm Book deletion? {selectedBook && selectedBook.Title}
+            Confirm Book deletion? {selectedBook && selectedBook.title}
           </span>
         </ModalBody>
         <ModalFooter>
@@ -398,5 +388,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
