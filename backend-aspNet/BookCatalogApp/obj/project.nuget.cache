@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dws2Y43CCUqJmx/e/0CpQpIP/5J1pYPJh0pONFu76iur5jF4qlmuPxZU0y27ZiWw2rFVgKrUmqPhq3Hcx7xpgQ==",
+  "dgSpecHash": "mDa5sH+r/X5/jr+MILXPMK0XeXc2oxU2MBt/KWlI2IUoFElInvmhafLGyiMhuvAZmozVnxnLxL+7um+nH9SmNQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jorge\\Desktop\\BookCatalogApp\\BookCatalogApp\\BookCatalogApp.csproj",
+  "projectFilePath": "C:\\Users\\jorge\\Documents\\GitHub\\book-catalog\\backend-aspNet\\BookCatalogApp\\BookCatalogApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jorge\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
