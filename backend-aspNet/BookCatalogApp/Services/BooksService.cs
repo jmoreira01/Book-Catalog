@@ -1,5 +1,6 @@
 ﻿using BookCatalogApp.Models;
 using Microsoft.EntityFrameworkCore;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace BookCatalogApp.Services
 {
@@ -78,6 +79,24 @@ namespace BookCatalogApp.Services
         {
             var book = await _context.Books.FindAsync(id);
             return book;
+        }
+
+        public async Task<IEnumerable<Book>> GetBooksBySearch(string search)
+        {
+            
+            if (!string.IsNullOrEmpty(search))
+            {
+                var books = await _context.Books
+                    .Where(s => s.Title.Contains(search) || s.Author.Contains(search) || s.ISBN.Contains(search))
+                    .ToListAsync();
+                
+                return books;
+            }
+            else
+            {
+                var books = await GetBooks();
+                return books;
+            }
         }
     }
 }

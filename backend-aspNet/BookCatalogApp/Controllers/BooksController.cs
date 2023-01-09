@@ -16,6 +16,7 @@ namespace BookCatalogApp.Controllers
         {
             _bookService = bookService;
         }
+
         [HttpGet]
         public async Task<ActionResult<IAsyncEnumerable<Book>>> GetBooks()
         {
@@ -28,6 +29,51 @@ namespace BookCatalogApp.Controllers
             {
                 return BadRequest("Invalid Request");
             }
+        }
+
+
+
+        [HttpGet("Sorting")]
+        public async Task<ActionResult<IAsyncEnumerable<Book>>> GetBooks(string sort)
+        {
+                try
+                {
+                    var books = await _bookService.GetBooks();
+                    if (!string.IsNullOrEmpty(sort))
+                    {
+                        switch (sort)
+                        {
+                            case "title":
+                                books = books.OrderBy(b => b.Title);
+                                break;
+                            case "author":
+                                books = books.OrderBy(b => b.Author);
+                                break;
+                            case "isbn":
+                                books = books.OrderBy(b => b.ISBN);
+                                break;
+                        }
+                    }
+                    return Ok(books);
+                }
+                catch
+                {
+                    return BadRequest("Invalid Request");
+                }
+        }
+
+        [HttpGet("Search")]
+        public async Task<ActionResult<IAsyncEnumerable<Book>>> GetBooksBySearch(string search)
+        {
+                try
+                {
+                    var books = await _bookService.GetBooksBySearch(search);
+                    return Ok(books);
+                }
+                catch
+                {
+                    return BadRequest("Invalid Request");
+                }
         }
 
         [HttpGet("{id:int}", Name = "GetBook")]
