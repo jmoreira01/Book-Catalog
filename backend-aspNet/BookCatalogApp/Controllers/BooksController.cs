@@ -18,11 +18,19 @@ namespace BookCatalogApp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<Book>>> GetBooks()
+        public async Task<ActionResult<IAsyncEnumerable<Book>>> GetBooks(
+            [FromQuery] int? page, 
+            [FromQuery] int? pageSize)
         {
             try
             {
                 var books = await _bookService.GetBooks();
+                if (page.HasValue && pageSize.HasValue)
+                {
+                    int startIndex = (page.Value - 1) * pageSize.Value;
+                    int endIndex = startIndex + pageSize.Value;
+                    books = books.Skip(startIndex).Take(endIndex);
+                }
                 return Ok(books);
             }
             catch
