@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import bookExample from "./assets/bookExample.jpg";
-import Paginate from 'react-paginate';
+import Pagination from 'react-paginate';
 
 
 function App() {
@@ -18,11 +18,13 @@ function App() {
     author: "",
     price: ""
   }); 
-
   const [sort, setSort] = useState('');
   const [search, setSearch] = useState('');
-  //!#const [page, setPage] = useState(0);  > LÓGICA DA PAGINAÇÃO
-  //!#const [pageCount, setPageCount] = useState(0); > LÓGICA DA PAGINAÇÃO
+  const [pagination, setPagination] = useState({
+    currentPage: 0,
+    pageSize: 5,
+    totalItems: 0,
+});
 
   const [modalNewBook, setModalNewBook] = useState(false); //useState para os novos alunos inseridos
   const [modalEdit, setModalEdit] = useState(false);
@@ -40,6 +42,8 @@ function App() {
   const onOffModalDelete = () => {
     setModalDelete(!modalDelete);
   };
+
+
 
    //método para guardar os valores inseridos no formulário
   // handleChange is Calling whenever you are entering any text to input
@@ -67,11 +71,7 @@ const handleSubmit = (e: React.FormEvent) => {
     setSort(e);
   };
 
-  //!#Pendente lógica da paginação
-  /*const handlePageClick = (data) => {
-    const selected = data.selected;
-    setPage(selected);
-  };*/
+
 
   const editBook = (book: any, option: any) => {
     setSelectedBook(book);
@@ -79,7 +79,15 @@ const handleSubmit = (e: React.FormEvent) => {
   };
 
 
+
   //!#API REQUESTS
+
+  const fetchBooksPagination = async (page: number, pageSize: number) => {
+    const response = await axios.get(`https://localhost:7180/api/Books?page=${page}&pageSize=${pageSize}`);
+    setData(response.data);
+    setPagination({ ...pagination, totalItems: Number(response.headers['x-total-count']) }); 
+    
+}
 
 //request para aceder à funcionalidade Sort
   const fetchBooks = () => {
@@ -87,16 +95,6 @@ const handleSubmit = (e: React.FormEvent) => {
       .then(response => setData(response.data))
       .catch(error => console.error(error));
   }
-
-  //!#Pendente lógica da paginação
-//request para aceder à funcionalidade Search (request para o servidor e atualiza o estado da aplicação com os dados da página atual.)
-/*const getDataFromServer = async (page: number, pageSize: number) => {
-  const response = await fetch(`/api/books?page=${page}&pageSize=${pageSize}`);
-  const data = await response.json();
-  setData(data.books);
-  setPageCount(data.pageCount);
-}; */
-
 
   const requestGet = async () => {
     await axios
@@ -171,30 +169,21 @@ const handleSubmit = (e: React.FormEvent) => {
     }                       
   }, [updateData]);
 
-  /*
-  !# Pendente lógica da paginação
-  useEffect(() => {
-    getDataFromServer(page, 5);
-  }, [page]); */
 
-  
+
 
   return (
     <div className="App">
       
       <br />
       <h1> Book Catalog</h1>
-      
       <header>
-        
       </header>
-      
       <div>
       <select style={{ width: 20 }} onChange={(e) => handleSortChange(e.target.value)}>
         <option value="title">Title</option>
         <option value="author">Author</option>
         <option value="isbn">ISBN</option>
-
       </select>
       <button onClick={() => fetchBooks ()}>Sort</button>
     </div>
@@ -223,7 +212,7 @@ const handleSubmit = (e: React.FormEvent) => {
 <div className="bg-white">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        {data.map(
+        {data.slice(pagination.currentPage * pagination.pageSize, (pagination.currentPage + 1) * pagination.pageSize).map(
               (book: {
                 id: number;
                 isbn: string;
@@ -269,20 +258,20 @@ const handleSubmit = (e: React.FormEvent) => {
               <p className="mt-1 text-lg font-medium text-gray-900">{book.price}€</p>
             </div>
           ))}
+          <div>
+  </div>
         </div>
       </div>
+      <Pagination
+     pageCount={Math.ceil(pagination.totalItems / pagination.pageSize)}
+     onPageChange={({ selected }) => fetchBooksPagination(selected + 1, pagination.pageSize)}
+     forcePage={pagination.currentPage}
+/>
     </div>
     <div>
-      {/* !# Exibe os dados da página atual aqui 
-      !# --------------------------------------------->Logica da paginação
-      <Paginate
-        previousLabel={"anterior"}
-        nextLabel={"próximo"}
-        breakLabel={<span className="gap">...</span>}
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        forcePage={page}
-      />*/}
+    <div>
+  </div>
+      
     </div>
 
 
