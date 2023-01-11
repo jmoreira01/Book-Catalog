@@ -4,8 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import bookExample from "./assets/bookExample.jpg";
-import Pagination from 'react-paginate';
-
+import ReactPaginate from "react-paginate";
 
 function App() {
   const baseUrl = "https://localhost:7180/api/Books"; //Endpoint access
@@ -20,15 +19,12 @@ function App() {
   }); 
   const [sort, setSort] = useState('');
   const [search, setSearch] = useState('');
-  const [pagination, setPagination] = useState({
-    currentPage: 0,
-    pageSize: 5,
-    totalItems: 0,
-});
-
   const [modalNewBook, setModalNewBook] = useState(false); //useState para os novos alunos inseridos
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
+  
+  const [pageCount, setPageCount] = useState(0);
+  const pageSize = 4;
 
    // Funções dos Modais abertura/fecho
    function onOffModalNew() {
@@ -56,20 +52,46 @@ function App() {
     });
   };
 
-//handleChange para o componente da funcionalidade search
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-  axios.get(`https://localhost:7180/api/Books/Search?search=${search}`) // Envia solicitação à API de backend com os filtros aplicados
-    .then(response => setData(response.data))
-    .then(data => {
-      // Atualizar estado com os resultados da pesquisa
-    })
-};
+
+
 
   //handleChange para o componente da funcionalidade Sort
   const handleSortChange = (e: any) => {
     setSort(e);
   };
+
+
+  const fetchBookPagination = async (currentPage: number, search:string ='') => {
+    const res = await fetch(baseUrl + '/Pagination?PageNumber=' + currentPage +'&PageSize='+pageSize + (search ? '&search=' + search : ''));
+    const temp = res.json();
+    return temp;
+  }; 
+
+  const handlePageClick = async (data:any)=>{
+    console.log(data.selected+1);
+    let currentPage = data.selected +1
+    const dbBooks = await fetchBookPagination(currentPage);
+    setData (dbBooks); 
+  }
+
+  
+
+  //handleChange para o componente da funcionalidade search
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  handleSearchSubmit(search, 1);
+};
+
+  const handleSearchSubmit = async (search: string, pageNumber: number) => {
+    try {
+        const response = 
+        await axios.get(`https://localhost:7180/api/Books/Search?search=${search}&PageNumber=${pageNumber}&PageSize=${pageSize}`);
+        setData(response.data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 
 
@@ -82,13 +104,6 @@ const handleSubmit = (e: React.FormEvent) => {
 
   //!#API REQUESTS
 
-  const fetchBooksPagination = async (page: number, pageSize: number) => {
-    const response = await axios.get(`https://localhost:7180/api/Books?page=${page}&pageSize=${pageSize}`);
-    setData(response.data);
-    setPagination({ ...pagination, totalItems: Number(response.headers['x-total-count']) }); 
-    
-}
-
 //request para aceder à funcionalidade Sort
   const fetchBooks = () => {
     axios.get(`https://localhost:7180/api/Books/Sorting?sort=${sort}`)
@@ -97,8 +112,12 @@ const handleSubmit = (e: React.FormEvent) => {
   }
 
   const requestGet = async () => {
+    const response = await (await axios.get(baseUrl)).data;
+    const total:number = response.length;
+        setPageCount(Math.ceil((total/pageSize)));
+
     await axios
-      .get(baseUrl)
+      .get(`https://localhost:7180/api/Books/Pagination?pageNumber=1&PageSize=${pageSize}`)
       .then((response) => {
         setData(response.data);
         console.log(response.data);
@@ -169,9 +188,6 @@ const handleSubmit = (e: React.FormEvent) => {
     }                       
   }, [updateData]);
 
-
-
-
   return (
     <div className="App">
       
@@ -212,7 +228,7 @@ const handleSubmit = (e: React.FormEvent) => {
 <div className="bg-white">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        {data.slice(pagination.currentPage * pagination.pageSize, (pagination.currentPage + 1) * pagination.pageSize).map(
+        {data.map(
               (book: {
                 id: number;
                 isbn: string;
@@ -262,11 +278,25 @@ const handleSubmit = (e: React.FormEvent) => {
   </div>
         </div>
       </div>
-      <Pagination
-     pageCount={Math.ceil(pagination.totalItems / pagination.pageSize)}
-     onPageChange={({ selected }) => fetchBooksPagination(selected + 1, pagination.pageSize)}
-     forcePage={pagination.currentPage}
-/>
+      <ReactPaginate 
+        previousLabel={'<-previous'}
+        nextLabel={'next ->'}
+        breakLabel={'...'} 
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination justify-content-center'}
+        pageClassName={'page-item'}
+        pageLinkClassName={'page-link'}
+        previousClassName={'page-item'}
+        previousLinkClassName={'page-link'}
+        nextClassName={'page-item'}
+        nextLinkClassName={'page-link'}
+        breakClassName={'page-item'}
+        breakLinkClassName={'page-link'}
+        activeClassName={'active'}
+  />
     </div>
     <div>
     <div>

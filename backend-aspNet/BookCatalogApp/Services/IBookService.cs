@@ -7,6 +7,7 @@ namespace BookCatalogApp.Services
 
         Task<IEnumerable<Book>> GetBooks();
         Task<Book> GetBook(int id);
+        IEnumerable<Book> BooksParameters(BooksParameters booksParameters);
         Task<IEnumerable<Book>> GetBooksByISBN(string isbn);
         Task<IEnumerable<Book>> GetBooksByAuthor(string author);
         Task<IEnumerable<Book>> GetBooksBySearch(string search);
