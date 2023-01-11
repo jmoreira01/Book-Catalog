@@ -90,6 +90,7 @@ namespace BookCatalogApp.Services
                     .Where(s => s.Title.Contains(search) || s.Author.Contains(search) || s.ISBN.Contains(search))
                     .ToListAsync();
                 
+
                 return books;
             }
             else
@@ -97,6 +98,20 @@ namespace BookCatalogApp.Services
                 var books = await GetBooks();
                 return books;
             }
+        }
+
+
+        public IEnumerable<Book> BooksParameters(BooksParameters booksParameters)
+        {
+            return FindAll()
+                .OrderBy(on => on.Id)
+                .Skip((booksParameters.PageNumber - 1) * booksParameters.PageSize)
+                .Take(booksParameters.PageSize)
+                .ToList();
+        }
+        public IQueryable<Book> FindAll()
+        {
+            return this._context.Set<Book>();
         }
     }
 }

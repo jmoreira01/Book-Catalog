@@ -18,24 +18,34 @@ namespace BookCatalogApp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IAsyncEnumerable<Book>>> GetBooks(
-            [FromQuery] int? page, 
-            [FromQuery] int? pageSize)
+        public async Task<ActionResult<IAsyncEnumerable<Book>>>
+            GetBooks(int? pageNumber, int? pageSize)
         {
             try
             {
                 var books = await _bookService.GetBooks();
-                if (page.HasValue && pageSize.HasValue)
-                {
-                    int startIndex = (page.Value - 1) * pageSize.Value;
-                    int endIndex = startIndex + pageSize.Value;
-                    books = books.Skip(startIndex).Take(endIndex);
-                }
                 return Ok(books);
             }
             catch
             {
                 return BadRequest("Invalid Request");
+            }
+        }
+
+        [HttpGet("Pagination")]
+        public IActionResult GetBooks([FromQuery] BooksParameters booksParameters)
+        {
+            try
+            {
+                var books = _bookService.BooksParameters(booksParameters);
+                return Ok(books)
+;
+            }
+            catch
+            {
+                return BadRequest("Invalid Request");
+
+
             }
         }
 
@@ -76,6 +86,7 @@ namespace BookCatalogApp.Controllers
                 try
                 {
                     var books = await _bookService.GetBooksBySearch(search);
+
                     return Ok(books);
                 }
                 catch
