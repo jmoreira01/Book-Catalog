@@ -7,9 +7,9 @@ import bookExample from "./assets/bookExample.jpg";
 import ReactPaginate from "react-paginate";
 
 function App() {
-  const baseUrl = "https://localhost:7180/api/Books"; //Endpoint access
+  const baseUrl = "https://localhost:7180/api/Books";
   const [data, setData] = useState([]);
-  const[updateData, setUpdateData] = useState(true);
+  const [updateData, setUpdateData] = useState(true);
   const [selectedBook, setSelectedBook] = useState({
     id: "",
     isbn: "",
@@ -22,101 +22,84 @@ function App() {
   const [modalNewBook, setModalNewBook] = useState(false); //useState para os novos alunos inseridos
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
-  
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 4;
 
-   // Funções dos Modais abertura/fecho
+
+   // Handles modals - Open/Close
    function onOffModalNew() {
     setModalNewBook(!modalNewBook);
   }
-
   const onOffModalEdit = () => {
     setModalEdit(!modalEdit);
   };
-
   const onOffModalDelete = () => {
     setModalDelete(!modalDelete);
   };
 
-
-
-   //método para guardar os valores inseridos no formulário
-  // handleChange is Calling whenever you are entering any text to input
-  // (...) the spread syntax expands an iterable object, usually an array, though it can be used on any interable, including a string.
+  // Handles input changes
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setSelectedBook({
-      ...selectedBook,
+      ...selectedBook,   // (...) the spread syntax expands an iterable object, usually an array, though it can be used on any interable, including a string.
       [name]: value,
     });
   };
 
-
-
-
-  //handleChange para o componente da funcionalidade Sort
+  // Handles sort changes
   const handleSortChange = (e: any) => {
     setSort(e);
   };
 
-
-  const fetchBookPagination = async (currentPage: number, search:string ='') => {
-    const res = await fetch(baseUrl + '/Pagination?PageNumber=' + currentPage +'&PageSize='+pageSize + (search ? '&search=' + search : ''));
-    const temp = res.json();
-    return temp;
-  }; 
-
-  const handlePageClick = async (data:any)=>{
-    console.log(data.selected+1);
-    let currentPage = data.selected +1
+  // Handles pagination
+  const handlePageClick = async (data: any) => {
+    const currentPage = data.selected + 1;
     const dbBooks = await fetchBookPagination(currentPage);
-    setData (dbBooks); 
-  }
-
-  
-
-  //handleChange para o componente da funcionalidade search
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-  handleSearchSubmit(search, 1);
-};
-
-  const handleSearchSubmit = async (search: string, pageNumber: number) => {
-    try {
-        const response = 
-        await axios.get(`https://localhost:7180/api/Books/Search?search=${search}&PageNumber=${pageNumber}&PageSize=${pageSize}`);
-        setData(response.data);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-
-
-
-  const editBook = (book: any, option: any) => {
-    setSelectedBook(book);
-    (option === "Edit") ? onOffModalEdit() : onOffModalDelete(); // se True escolhe Edit, se FALSO escolhe Eliminar
+    setData(dbBooks);
   };
 
+   // Handles search form submission
+   const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSearchSubmit(search, 1);
+  };
 
+    // Fetches pagination data from API
+    const fetchBookPagination = async (currentPage: number, search: string = '') => {
+      const res = await fetch(baseUrl + '/Pagination?PageNumber=' + currentPage + '&PageSize=' + pageSize + (search ? '&search=' + search : ''));
+      const temp = res.json();
+      return temp;
+    };
 
-  //!#API REQUESTS
+     // Fetches search data from API
+  const handleSearchSubmit = async (search: string, pageNumber: number) => {
+    try {
+      const response = await axios.get(`https://localhost:7180/api/Books/Search?search=${search}&PageNumber=${pageNumber}&PageSize=${pageSize}`);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-//request para aceder à funcionalidade Sort
-  const fetchBooks = () => {
-    axios.get(`https://localhost:7180/api/Books/Sorting?sort=${sort}`)
-      .then(response => setData(response.data))
-      .catch(error => console.error(error));
-  }
+// Edits or deletes a book
+const editBook = (book: any, option: any) => {
+  setSelectedBook(book);
+  (option === "Edit") ? onOffModalEdit() : onOffModalDelete(); // True = Edit / FALSE = Delete
+};
 
-  const requestGet = async () => {
-    const response = await (await axios.get(baseUrl)).data;
-    const total:number = response.length;
-        setPageCount(Math.ceil((total/pageSize)));
+ // Fetches sorted data from API
+ const fetchBooks = () => {
+  axios.get(`https://localhost:7180/api/Books/Sorting?sort=${sort}`)
+    .then(response => setData(response.data))
+    .catch(error => console.error(error));
+};
 
-    await axios
+// Requests data from API
+const requestGet = async () => {
+  const response = await (await axios.get(baseUrl)).data;
+  const total: number = response.length;
+  setPageCount(Math.ceil((total / pageSize)));
+  await axios
       .get(`https://localhost:7180/api/Books/Pagination?pageNumber=1&PageSize=${pageSize}`)
       .then((response) => {
         setData(response.data);
@@ -127,8 +110,8 @@ const handleSubmit = (e: React.FormEvent) => {
       });
   };
 
-  //
-  const requestPost = async () => {
+// Posts data to API
+const requestPost = async () => {
     delete selectedBook.id;
     await axios
       .post(baseUrl, selectedBook) //Envia o request POST por axios
@@ -141,9 +124,9 @@ const handleSubmit = (e: React.FormEvent) => {
         console.log(error);
       });
   };
-
-    //
-    const requestPut = async () => {
+  
+  // Puts data to API
+  const requestPut = async () => {
       await axios
         .put(baseUrl + "/" + selectedBook.id, selectedBook) //Envia o request PUT por axios
         .then((response) => {
@@ -167,7 +150,7 @@ const handleSubmit = (e: React.FormEvent) => {
         });
     };
 
-
+// Deletes data from API
   const requestDelete = async () => {
     await axios
       .delete(baseUrl + "/" + selectedBook.id) //Envia o request DELETE por axios
@@ -180,54 +163,69 @@ const handleSubmit = (e: React.FormEvent) => {
       });
   };
 
-
+  //useEffect - inifinite requests avoided
   useEffect(() => {
     if(updateData) {
       requestGet();
-      setUpdateData(false); // coloca-se a função setData no scope do Use effect porque gere os dados recebidos que vão modificar o estado da app
+      setUpdateData(false); // setData on scope of Use effect to manage data that will modify the app
     }                       
   }, [updateData]);
-
+  
   return (
     <div className="App">
-      
-      <br />
       <h1> Book Catalog</h1>
       <header>
       </header>
-      <div>
-      <select style={{ width: 20 }} onChange={(e) => handleSortChange(e.target.value)}>
-        <option value="title">Title</option>
-        <option value="author">Author</option>
-        <option value="isbn">ISBN</option>
-      </select>
-      <button onClick={() => fetchBooks ()}>Sort</button>
-    </div>
+      <button
+        type="button"
+        className="App__add-book text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2.5 text-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+        onClick={() => onOffModalNew()}
+      >
+        Add Book +
+      </button>
 
-    <form className="flex items-center" onSubmit={handleSubmit}>   
-    <div className="relative w-80">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <div className="App__sort">
+  <label htmlFor="sort"></label>
+  <select id="sort" onChange={(e) => handleSortChange(e.target.value)}>
+    <option value="title">Title</option>
+    <option value="author">Author</option>
+    <option value="isbn">ISBN</option>
+  </select>
+  <button onClick={() => fetchBooks()} className="btn-sort">Sort</button>
+</div>
+
+<form 
+        className="flex items-center App__search" 
+        onSubmit={handleSubmit}
+      >
+        <div className="relative w-80">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
+          </div>
+          <input 
+            type="text" 
+            id="search" 
+            value={search} 
+            onChange={(e) => setSearch(e.target.value)} 
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            placeholder="Search" 
+            required
+          />
         </div>
-        <input type="text" id="search" value={search} onChange={(e) => setSearch(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
-    </div>
-    <button type="submit" className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        <span className="sr-only">Search</span>
-    </button>
-</form>
-
-<button
-          type="button"
-          className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-          onClick={() => onOffModalNew()}
+        <button 
+          type="submit" 
+          className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Add Book
-</button>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        <span className="sr-only">Search</span>
+        </button>
+      </form>
 
-<div className="bg-white">
+<div className="bg-white ">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+        <div className=" App__book-list grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         {data.map(
               (book: {
                 id: number;
@@ -239,7 +237,7 @@ const handleSubmit = (e: React.FormEvent) => {
             // eslint-disable-next-line no-template-curly-in-string
             <div key={book.id}>
               
-              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+              <div className=" App__book-card aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
                 <a href={`https://www.wook.pt/pesquisa/${book.title}`} target="_blank" className="group" rel="noreferrer"> <img 
                 src={bookExample}
                   alt=""
@@ -301,7 +299,6 @@ const handleSubmit = (e: React.FormEvent) => {
     <div>
     <div>
   </div>
-      
     </div>
 
 
