@@ -7,71 +7,79 @@ import bookExample from "./assets/bookExample.jpg";
 import ReactPaginate from "react-paginate";
 
 function App() {
+
   const baseUrl = "https://localhost:7180/api/Books";
-  const [data, setData] = useState([]);
-  const [updateData, setUpdateData] = useState(true);
-  const [selectedBook, setSelectedBook] = useState({
+  const [data, setData] = useState([]); // an array that holds the data retrieved from the back-end API.
+  const [updateData, setUpdateData] = useState(true); // whether the data should be updated or not.
+  const [selectedBook, setSelectedBook] = useState({ // an object that holds the selected book.
     id: "",
     isbn: "",
     title: "",
     author: "",
     price: ""
   }); 
-  const [sort, setSort] = useState('');
-  const [search, setSearch] = useState('');
-  const [modalNewBook, setModalNewBook] = useState(false); //useState para os novos alunos inseridos
-  const [modalEdit, setModalEdit] = useState(false);
-  const [modalDelete, setModalDelete] = useState(false);
+  const [sort, setSort] = useState(''); // a string that holds the sort order.
+  const [search, setSearch] = useState(''); // a string that holds the search term.
+  const [modalNewBook, setModalNewBook] = useState(false); // a boolean that determines if the "New Book" modal is open or closed.
+  const [modalEdit, setModalEdit] = useState(false); // a boolean that determines if the "Edit Book" modal is open or closed.
+  const [modalDelete, setModalDelete] = useState(false); // a boolean that determines if the "Delete Book" modal is open or closed.
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 4;
 
 
-   // Handles modals - Open/Close
-   function onOffModalNew() {
-    setModalNewBook(!modalNewBook);
-  }
-  const onOffModalEdit = () => {
-    setModalEdit(!modalEdit);
-  };
-  const onOffModalDelete = () => {
-    setModalDelete(!modalDelete);
+
+  // !Handle modals
+  // a function that opens or closes a modal based on the passed parameter.
+  const handleModal = (modal: string) => {
+    switch (modal) {
+      case "new":
+        setModalNewBook(!modalNewBook);
+        break;
+      case "edit":
+        setModalEdit(!modalEdit);
+        break;
+      case "delete":
+        setModalDelete(!modalDelete);
+        break;
+      default:
+        break;
+    }
   };
 
-  // Handles input changes
+
+  // !Handles input changes
+  // a function that updates the selectedBook state variable when the input 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setSelectedBook({
-      ...selectedBook,   // (...) the spread syntax expands an iterable object, usually an array, though it can be used on any interable, including a string.
+      ...selectedBook,
       [name]: value,
     });
   };
 
-  // Handles sort changes
+  // !Handles sort changes
+  // a function that updates the sort state variable when the sort option changes
   const handleSortChange = (e: any) => {
     setSort(e);
   };
 
-  // Handles pagination
+  // !Handles pagination
   const handlePageClick = async (data: any) => {
     const currentPage = data.selected + 1;
     const dbBooks = await fetchBookPagination(currentPage);
     setData(dbBooks);
   };
 
-   // Handles search form submission
+   // !Handles search form submission
+   // a function that handles the search form submission and calls the 'handleSearchSubmit' function.
    const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSearchSubmit(search, 1);
   };
 
-    // Fetches pagination data from API
-    const fetchBookPagination = async (currentPage: number, search: string = '') => {
-      const res = await fetch(baseUrl + '/Pagination?PageNumber=' + currentPage + '&PageSize=' + pageSize + (search ? '&search=' + search : ''));
-      const temp = res.json();
-      return temp;
-    };
-
-     // Fetches search data from API
+  // !Fetches search data from API
+  // a function that makes an HTTP GET request to the back-end API to retrieve books based on the search query, 
+  // and updates the data state variable with the returned data.
   const handleSearchSubmit = async (search: string, pageNumber: number) => {
     try {
       const response = await axios.get(`https://localhost:7180/api/Books/Search?search=${search}&PageNumber=${pageNumber}&PageSize=${pageSize}`);
@@ -81,10 +89,17 @@ function App() {
     }
   };
 
+    // Fetches pagination data from API
+    const fetchBookPagination = async (currentPage: number, search: string = '') => {
+      const res = await fetch(baseUrl + '/Pagination?PageNumber=' + currentPage + '&PageSize=' + pageSize + (search ? '&search=' + search : ''));
+      const temp = res.json();
+      return temp;
+    };
+
 // Edits or deletes a book
 const editBook = (book: any, option: any) => {
   setSelectedBook(book);
-  (option === "Edit") ? onOffModalEdit() : onOffModalDelete(); // True = Edit / FALSE = Delete
+  (option === "Edit") ? handleModal("edit") : handleModal("delete"); // True = Edit / FALSE = Delete
 };
 
  // Fetches sorted data from API
@@ -118,7 +133,7 @@ const requestPost = async () => {
       .then((response) => {
         setData(data.concat(response.data));
         setUpdateData(true);
-        onOffModalNew();
+        handleModal("new");
       })
       .catch((error) => {
         console.log(error);
@@ -128,13 +143,13 @@ const requestPost = async () => {
   // Puts data to API
   const requestPut = async () => {
       await axios
-        .put(baseUrl + "/" + selectedBook.id, selectedBook) //Envia o request PUT por axios
+        .put(baseUrl + "/" + selectedBook.id, selectedBook)
         .then((response) => {
           var res = response.data;
           var tempData = data;
           // eslint-disable-next-line
           tempData.map((book): void => {
-            //variavel temporária para guardar os dados das alterações para depois mapear e aferir os registos alterados.
+            //Temp var para guardar os dados das alterações para depois mapear e aferir os registos alterados.
             if (book.id === selectedBook.id) {
               book.isbn = res.isbn;
               book.title= res.title;
@@ -143,7 +158,7 @@ const requestPost = async () => {
             }
           });
           setUpdateData(true);
-          onOffModalEdit();
+          handleModal("edit");;
         })
         .catch((error) => {
           console.log(error);
@@ -153,11 +168,11 @@ const requestPost = async () => {
 // Deletes data from API
   const requestDelete = async () => {
     await axios
-      .delete(baseUrl + "/" + selectedBook.id) //Envia o request DELETE por axios
+      .delete(baseUrl + "/" + selectedBook.id)
       .then((response) => {
         setData(data.filter(book => book.id !== response.data)); //Aplica filtro nos dados para exluir o registo que coincide com o id devolvido pela API. (!==) verifica o valor e tipo, eliminando
         setUpdateData(true);
-        onOffModalDelete();
+        handleModal("delete");
       }).catch((error) => {
         console.log(error);
       });
@@ -179,7 +194,7 @@ const requestPost = async () => {
       <button
         type="button"
         className="App__add-book text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2.5 text-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        onClick={() => onOffModalNew()}
+        onClick={() => handleModal("new")}
       >
         Add Book +
       </button>
@@ -238,7 +253,8 @@ const requestPost = async () => {
             <div key={book.id}>
               
               <div className=" App__book-card aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
-                <a href={`https://www.wook.pt/pesquisa/${book.title}`} target="_blank" className="group" rel="noreferrer"> <img 
+                <a href={`https://www.wook.pt/pesquisa/${book.title}`} target="_blank" className="group" rel="noreferrer"> <img
+                loading="lazy"  
                 src={bookExample}
                   alt=""
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
@@ -294,7 +310,7 @@ const requestPost = async () => {
         breakClassName={'page-item'}
         breakLinkClassName={'page-link'}
         activeClassName={'active'}
-  />
+              />
     </div>
     <div>
     <div>
@@ -367,7 +383,7 @@ const requestPost = async () => {
           <button
             type="button"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={() => onOffModalNew()}
+            onClick={() => handleModal("new")}
           >
             Cancel
           </button>
@@ -456,7 +472,7 @@ const requestPost = async () => {
           <button
             type="button"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={() => onOffModalEdit()}
+            onClick={() => handleModal("edit")}
           >
             Cancel
           </button>
@@ -475,7 +491,7 @@ const requestPost = async () => {
         <ModalFooter>
 
         <button type="button" className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" onClick={() => requestDelete()}>Delete</button>
-        <button type="button" className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" onClick={() => onOffModalDelete()}>Cancel</button>
+        <button type="button" className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" onClick={() => handleModal("delete")}>Cancel</button>
 
         </ModalFooter>
       </Modal>
