@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ZrfVgSWjbc/T4GSqUzDB5b5GSQ5Dyx5GqFomm8zsuPdn/auheJPW3GfDp57U/4hXbAZBEbW07DcMYs9fBFtx6Q==",
+  "dgSpecHash": "WW+ePqdB+Dt/F2Q0QoEBIaxzMmg+gFtItfSYT0Do+xMoPx1TMjUuCexlJB8KqB7WafJug9KcSfnwGIEAeqIpdw==",
   "success": true,
   "projectFilePath": "C:\\Users\\jorge\\Documents\\GitHub\\book-catalog\\backend-aspNet\\BookCatalogApp.Infrastructure\\BookCatalogApp.Infrastructure.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\jorge\\.nuget\\packages\\fluentvalidation\\11.4.0\\fluentvalidation.11.4.0.nupkg.sha512",
+    "C:\\Users\\jorge\\.nuget\\packages\\servicestack.interfaces\\6.5.0\\servicestack.interfaces.6.5.0.nupkg.sha512"
+  ],
   "logs": []
 }
