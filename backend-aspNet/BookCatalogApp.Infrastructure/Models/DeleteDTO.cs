@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace BookCatalogApp.Infrastructure.Models
 {
-    internal class DeleteDTO
+    public class DeleteDTO
     {
         public int Id { get; set; }
+
     }
 }

@@ -23,6 +23,7 @@ namespace BookCatalogApp.Models
 
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.Range(0, 999999, ErrorMessage = "Value must be between {0} and {1}. Can´t be negative!")]
+        [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }
 
         // [JsonIgnore] para esconder a propriedade (teste)
