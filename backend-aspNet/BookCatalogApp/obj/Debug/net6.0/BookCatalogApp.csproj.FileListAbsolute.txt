@@ -174,3 +174,14 @@ C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\obj\D
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\obj\Debug\net6.0\BookCatalogApp.pdb
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\obj\Debug\net6.0\BookCatalogApp.genruntimeconfig.cache
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\obj\Debug\net6.0\ref\BookCatalogApp.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\Ardalis.SmartEnum.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\Ardalis.SmartEnum.SystemTextJson.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\Elasticsearch.Net.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\Nest.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.BLL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.DAL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.Infrastructure.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.BLL.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.DAL.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.Infrastructure.pdb

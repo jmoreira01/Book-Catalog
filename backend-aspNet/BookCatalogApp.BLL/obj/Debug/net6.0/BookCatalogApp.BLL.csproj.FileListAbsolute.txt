@@ -1,0 +1,17 @@
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\bin\Debug\net6.0\BookCatalogApp.BLL.deps.json
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\bin\Debug\net6.0\BookCatalogApp.BLL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\bin\Debug\net6.0\BookCatalogApp.BLL.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\bin\Debug\net6.0\BookCatalogApp.DAL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\bin\Debug\net6.0\BookCatalogApp.Infrastructure.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\bin\Debug\net6.0\BookCatalogApp.DAL.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\bin\Debug\net6.0\BookCatalogApp.Infrastructure.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\BookCatalogApp.BLL.csproj.AssemblyReference.cache
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\BookCatalogApp.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\BookCatalogApp.BLL.AssemblyInfoInputs.cache
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\BookCatalogApp.BLL.AssemblyInfo.cs
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\BookCatalogApp.BLL.csproj.CoreCompileInputs.cache
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\BookCatalogApp.BLL.csproj.CopyComplete
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\BookCatalogApp.BLL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\refint\BookCatalogApp.BLL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\BookCatalogApp.BLL.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.BLL\obj\Debug\net6.0\ref\BookCatalogApp.BLL.dll

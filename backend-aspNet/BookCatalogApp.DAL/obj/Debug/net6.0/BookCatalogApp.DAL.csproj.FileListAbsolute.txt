@@ -1,0 +1,15 @@
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\bin\Debug\net6.0\BookCatalogApp.DAL.deps.json
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\bin\Debug\net6.0\BookCatalogApp.DAL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\bin\Debug\net6.0\BookCatalogApp.DAL.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\bin\Debug\net6.0\BookCatalogApp.Infrastructure.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\bin\Debug\net6.0\BookCatalogApp.Infrastructure.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.csproj.AssemblyReference.cache
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.AssemblyInfoInputs.cache
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.AssemblyInfo.cs
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.csproj.CoreCompileInputs.cache
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.csproj.CopyComplete
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\refint\BookCatalogApp.DAL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\ref\BookCatalogApp.DAL.dll

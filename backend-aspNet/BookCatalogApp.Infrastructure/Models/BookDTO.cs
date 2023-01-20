@@ -2,7 +2,7 @@
 
 namespace BookCatalogApp.Infrastructure.Models
 {
-    internal class BookDTO
+    public class BookDTO
     {
         public long Isbn { get; set; }
         public string Title { get; set; }

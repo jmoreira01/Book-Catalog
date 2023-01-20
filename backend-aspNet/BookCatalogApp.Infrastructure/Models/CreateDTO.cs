@@ -25,10 +25,33 @@ namespace BookCatalogApp.Infrastructure.Models
     {
         public CreateDTOValidator()
         {
-            RuleFor(x => x.Isbn).NotNull().WithMessage("Insert ISBN ").NotEmpty().WithMessage("Value must be 0 or higher.").NotEmpty().WithMessage("Please, fill in the blank field with the ISBN");
-            RuleFor(x => x.Title).NotNull().WithMessage("Insert Title").NotEmpty().WithMessage("Please, fill in the blank field with the Title");
-            RuleFor(x => x.Author).NotNull().WithMessage("Insert Author").NotEmpty().WithMessage("Please, fill in the blank field with the Author");
-            RuleFor(x => x.Price).NotNull().WithMessage("Insert Price").GreaterThanOrEqualTo(0).WithMessage("Value must be 0 or higher.").NotEmpty().WithMessage("Please, fill in the blank field with the price");
+            RuleFor(x => x.Isbn)
+                .NotNull()
+                .WithMessage("Insert ISBN ")
+                .NotEmpty()
+                .WithMessage("Value must be 0 or higher.")
+                .NotEmpty()
+                .WithMessage("Please, fill in the blank field with the ISBN");
+
+            RuleFor(x => x.Title)
+                .NotNull()
+                .WithMessage("Insert Title")
+                .NotEmpty()
+                .WithMessage("Please, fill in the blank field with the Title");
+
+            RuleFor(x => x.Author)
+                .NotNull()
+                .WithMessage("Insert Author")
+                .NotEmpty()
+                .WithMessage("Please, fill in the blank field with the Author");
+
+            RuleFor(x => x.Price)
+                .NotNull()
+                .WithMessage("Insert Price")
+                .GreaterThanOrEqualTo(0)
+                .WithMessage("Value must be 0 or higher.")
+                .NotEmpty()
+                .WithMessage("Please, fill in the blank field with the price");
         }
     }
 }
