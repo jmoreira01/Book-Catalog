@@ -73,17 +73,17 @@ namespace BookCatalogApp.BLL.Services
                     return result;
                 }
 
-                responseRepository.DeleteBook();
+                responseRepository.DeleteBooks();
                 await _context.SaveChangesAsync();
                 result.Success = true;
-                result.Message = "Livro deletado com sucesso";
+                result.Message = "Deleted!";
                 return result;
 
             }
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = "Ocorreu um erro ao ir buscar livro";
+                result.Message = "Book search error!";
             }
 
             return result;
@@ -91,12 +91,94 @@ namespace BookCatalogApp.BLL.Services
 
         public async Task<PaginatedList<ListDTO>> GetAll(Search search)
         {
-            throw new NotImplementedException();
+            PaginatedList<ListDTO> response = new();
+
+            try
+            {
+                if (search.PageSize > 100)
+                {
+                    search.PageSize = 100;
+                }
+
+                if (search.PageSize <= 0)
+                {
+                    search.PageSize = 1;
+                }
+
+                if (search.CurrentPage <= 0)
+                {
+                    search.CurrentPage = 1;
+                }
+
+                var responseRepository = await _bookRepository.GetBooks(search.Sorting, search.Searching, search.CurrentPage, search.PageSize);
+                if (responseRepository.Success != true)
+                {
+                    response.Success = false;
+                    response.Message = "Error! No data to show.";
+                    return response;
+                }
+
+                response.Items = responseRepository.Items.Select(t => new ListDTO(t)).ToList();
+                response.PageSize = responseRepository.PageSize;
+                response.CurrentPage = responseRepository.CurrentPage;
+                response.TotalRecords = responseRepository.TotalRecords;
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+
+                response.Success = false;
+                response.Message = "There was an error getting the books!";
+            }
+
+            return response;
         }
 
         public async Task<MessagingHelper<BookDTO>> Update(EditDTO editBook)
         {
-            throw new NotImplementedException();
+            MessagingHelper<BookDTO> result = new();
+            try
+            {
+                EditDTOValidator validator = new();
+                var responseValidator = validator.Validate(editBook);
+                if (responseValidator.IsValid == false)
+                {
+                    result.Success = false;
+                    result.Message = responseValidator.Errors.FirstOrDefault().ErrorMessage;
+                    return result;
+                }
+                var bookDB = await _bookRepository.GetById((int)editBook.Id);
+                if (bookDB == null)
+                {
+                    result.Message = "The book doesnt exist!";
+                    return result;
+                }
+                if (editBook.Isbn == bookDB.Isbn && editBook.Title == bookDB.Title && editBook.Price == bookDB.Price && editBook.Author == bookDB.Author)
+                {
+                    result.Success = false;
+                    result.Message = "No changes made!";
+                    return result;
+                }
+
+                bookDB.Isbn = editBook.Isbn;
+                bookDB.Title = editBook.Title;
+                bookDB.Author = editBook.Author;
+                bookDB.Price = editBook.Price;
+
+                var bookUpDate = await _bookRepository.Update(bookDB);
+
+                result.Success = true;
+                result.Message = "EDITED!";
+                result.Obj = new BookDTO(bookUpDate);
+
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "Data has not been edited!";
+            }
+
+            return result;
         }
     }
 }
