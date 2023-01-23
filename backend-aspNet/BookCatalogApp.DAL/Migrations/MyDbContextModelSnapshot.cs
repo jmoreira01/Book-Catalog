@@ -16,7 +16,7 @@ namespace BookCatalogApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -33,15 +33,14 @@ namespace BookCatalogApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ISBN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<long>("Isbn")
+                        .HasColumnType("bigint");
+
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6, 2)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -49,10 +48,39 @@ namespace BookCatalogApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ISBN")
+                    b.HasIndex("Isbn")
                         .IsUnique();
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Joana Roque",
+                            IsDeleted = false,
+                            Isbn = 9789899087545L,
+                            Price = 17.91m,
+                            Title = "Cozinhar com Sobras"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Joana Gentil Martins",
+                            IsDeleted = false,
+                            Isbn = 9789897776588L,
+                            Price = 14.31m,
+                            Title = "Torna-te o Amor da Tua Vida"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "Colleen Hoover",
+                            IsDeleted = false,
+                            Isbn = 9789896237257L,
+                            Price = 19.45m,
+                            Title = "Isto Começa Aqui"
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,10 @@
+Dependencias: 
+- Validações Joi (https://www.npmjs.com/package/react-joi)
+- Toastify (https://www.npmjs.com/package/react-toastify)
+- Axios (https://www.npmjs.com/package/axios)
+- Boostrap (https://getbootstrap.com/)
+- Flowbite (https://flowbite.com/docs/getting-started/react/)
+- Paginate (https://www.npmjs.com/package/react-paginate)
+- Reactstrap (https://reactstrap.github.io/?path=/story/home-installation--page)
+- Tailwind (https://tailwindui.com/documentation#react-installing-dependencies)
+- React-Table (https://react-table-v7.tanstack.com/docs/installation)

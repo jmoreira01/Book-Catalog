@@ -28,5 +28,10 @@ namespace BookCatalogApp.Models
 
         // [JsonIgnore] para esconder a propriedade (teste)
         public bool IsDeleted { get; set; }
+
+        public void DeleteBooks()
+        {
+            this.IsDeleted = true;
+        }
     }
 }

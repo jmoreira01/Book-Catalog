@@ -185,3 +185,5 @@ C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\D
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.BLL.pdb
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.DAL.pdb
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\BookCatalogApp.Infrastructure.pdb
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.Design.dll

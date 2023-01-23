@@ -13,3 +13,5 @@ C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\o
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\refint\BookCatalogApp.DAL.dll
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.pdb
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\ref\BookCatalogApp.DAL.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\bin\Debug\net6.0\BookCatalogApp.DAL.runtimeconfig.json
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.DAL\obj\Debug\net6.0\BookCatalogApp.DAL.genruntimeconfig.cache
