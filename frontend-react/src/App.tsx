@@ -115,7 +115,7 @@ const requestGet = async () => {
   const total: number = response.length;
   setPageCount(Math.ceil((total / pageSize)));
   await axios
-      .get(`https://localhost:7180/api/Books/Pagination?pageNumber=1&PageSize=${pageSize}`)
+      .get(`https://localhost:7180/api/Books/getAll`)
       .then((response) => {
         setData(response.data);
         console.log(response.data);

@@ -10,3 +10,5 @@ C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.Infra
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.Infrastructure\obj\Debug\net6.0\refint\BookCatalogApp.Infrastructure.dll
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.Infrastructure\obj\Debug\net6.0\BookCatalogApp.Infrastructure.pdb
 C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.Infrastructure\obj\Debug\net6.0\ref\BookCatalogApp.Infrastructure.dll
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.Infrastructure\bin\Debug\net6.0\BookCatalogApp.Infrastructure.runtimeconfig.json
+C:\Users\jorge\Documents\GitHub\book-catalog\backend-aspNet\BookCatalogApp.Infrastructure\obj\Debug\net6.0\BookCatalogApp.Infrastructure.genruntimeconfig.cache

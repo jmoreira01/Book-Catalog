@@ -43,7 +43,8 @@ namespace BookCatalogApp.DAL.Repositories.Books
         {
             PaginatedList<Book> response = new PaginatedList<Book>();
 
-            var query = _context.Books.Include(a => a.Author).AsQueryable();
+            //var query = _context.Books.Include(a => a.Author).AsQueryable(); !Vai buscar por autores.
+            var query = _context.Books.AsQueryable();
 
             if (sort.Count() > 0 && sort != null)
             {
