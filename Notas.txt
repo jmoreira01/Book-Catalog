@@ -8,3 +8,5 @@ Dependencias:
 - Reactstrap (https://reactstrap.github.io/?path=/story/home-installation--page)
 - Tailwind (https://tailwindui.com/documentation#react-installing-dependencies)
 - React-Table (https://react-table-v7.tanstack.com/docs/installation)
+- React-router-dom (https://reactrouter.com/en/main/start/tutorial)
+- React-Bootstrap(https://react-bootstrap.github.io/getting-started/introduction/)
