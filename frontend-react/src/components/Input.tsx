@@ -1,72 +1,66 @@
 import Select from "./Select";
 
-export default function Input(props) {
+const Input = (props) => {
   return (
-    <div>
+    <div className="custom-input-container">
       {props.isBook ? (
-        <div className="form-group">
-          <label>ISBN:</label>
+        <div>
+          <div className="custom-input-label">ISBN:</div>
           <input
             type="number"
-            className="form-control"
+            className="custom-input"
             name="isbn"
             onChange={props.onChange}
             value={props.isbn}
           />
-          <br />
-          <label>TITLE:</label>
+          <div className="custom-input-label">TITLE:</div>
           <input
             type="text"
-            className="form-control"
+            className="custom-input"
             name="title"
             onChange={props.onChange}
             value={props.title}
           />
-          <br />
-          <label>AUTHOR:</label>
+          <div className="custom-input-label">AUTHOR:</div>
           <input
             type="text"
-            className="form-control"
+            className="custom-input"
             name="author"
             onChange={props.onChange}
             value={props.author}
           />
-          <br />
           <Select value={props.id} onChange={props.onChange} />
-          <br />
-          <label>PRICE:</label>
+          <div className="custom-input-label">PRICE:</div>
           <input
             type="number"
-            className="form-control"
+            className="custom-input"
             name="price"
             onChange={props.onChange}
             value={props.price}
           />
         </div>
       ) : (
-        <div className="form-group">
-          <label>Nome:</label>
+        <div>
+          <div className="custom-input-label">Nome:</div>
           <input
             type="text"
-            className="form-control"
+            className="custom-input"
             name="name"
             onChange={props.onChange}
             value={props.name}
           />
-          <br />
-          <label>País:</label>
+          <div className="custom-input-label">País:</div>
           <input
             type="text"
-            className="form-control"
+            className="custom-input"
             name="nacionality"
             onChange={props.onChange}
             value={props.nacionality}
           />
-          <br />
-          <label>Imagem:</label>
+          <div className="custom-input-label">Imagem:</div>
           <input
             type="text"
-            className="form-control"
+            className="custom-input"
             name="image"
             onChange={props.onChange}
             value={props.image}
@@ -75,4 +69,6 @@ export default function Input(props) {
       )}
     </div>
   );
-}
+};
+
+export default Input;
