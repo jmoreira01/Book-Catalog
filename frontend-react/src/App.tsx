@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
+import { Button} from "reactstrap";
 import { Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import bookExample from "./assets/bookExample.jpg";
 import ReactPaginate from "react-paginate";
+import { BookService } from "./services/BookService";
+import Toast from "./helpers/Toast";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
-
-  const baseUrl = "https://localhost:7180/api/Books";
+/* //! OLD LOGIC WRAPPED
   const [data, setData] = useState([]); // an array that holds the data retrieved from the back-end API.
-  const [updateData, setUpdateData] = useState(true); // whether the data should be updated or not.
   const [selectedBook, setSelectedBook] = useState({ // an object that holds the selected book.
     id: "",
     isbn: "",
@@ -18,17 +21,15 @@ function App() {
     author: "",
     price: ""
   }); 
-  const [sort, setSort] = useState(''); // a string that holds the sort order.
-  const [search, setSearch] = useState(''); // a string that holds the search term.
+  const baseUrl = "https://localhost:7180/api/Books";
   const [modalNewBook, setModalNewBook] = useState(false); // a boolean that determines if the "New Book" modal is open or closed.
   const [modalEdit, setModalEdit] = useState(false); // a boolean that determines if the "Edit Book" modal is open or closed.
   const [modalDelete, setModalDelete] = useState(false); // a boolean that determines if the "Delete Book" modal is open or closed.
   const [pageCount, setPageCount] = useState(0);
   const pageSize = 4;
+  
 
-
-
-  // !Handle modals
+ !Handle modal
   // a function that opens or closes a modal based on the passed parameter.
   const handleModal = (modal: string) => {
     switch (modal) {
@@ -124,6 +125,7 @@ const requestGet = async () => {
         console.log(error);
       });
   };
+  
 
 // Posts data to API
 const requestPost = async () => {
@@ -176,12 +178,47 @@ const requestPost = async () => {
       }).catch((error) => {
         console.log(error);
       });
+  };*/
+
+  const sortOptions = ["ISBN,", "Title", "Author", "Price"];
+  const [sort, setSort] = useState(''); // a string that holds the sort order.
+  const [pageCount, setPageCount] = useState(1);
+  const [updateData, setUpdateData] = useState(true); // whether the data should be updated or not.
+  const [search, setSearch] = useState('');
+  const navigate = useNavigate();
+  const [forcePage, setForcePage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(4);
+  const [books, setBooks] = useState([]);
+  const bookService = new BookService();
+
+  // !Handles pagination
+  const handlePageClick = async (data: any) => {
+    const currentPage = data.selected + 1;
+    setCurrentPage(currentPage);
+    setForcePage(data.selected);
   };
+
+
+  const loadBooks = async () => {
+    var response = await bookService.GetAll(currentPage, pageSize, searchInput, sortValue);
+    if (response.success !== true) {
+        Toast.Show("error", "Erro ao carregar os livros!");
+        return;
+    }
+    if (response.items == null) {
+        Toast.Show("error", "Não existem livros!");
+        return;
+    }
+    setBooks(response.items);
+    setPageCount(response.totalPages);
+    setUpdateData(true);
+};
 
   //useEffect - inifinite requests avoided
   useEffect(() => {
     if(updateData) {
-      requestGet();
+      loadBooks();
       setUpdateData(false); // setData on scope of Use effect to manage data that will modify the app
     }                       
   }, [updateData]);
@@ -194,24 +231,25 @@ const requestPost = async () => {
       <button
         type="button"
         className="App__add-book text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-4 py-2.5 text-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        onClick={() => handleModal("new")}
+        onClick={() =>  navigate(`/newBook`)}
       >
         Add Book +
       </button>
 
       <div className="App__sort">
   <label htmlFor="sort"></label>
-  <select id="sort" onChange={(e) => handleSortChange(e.target.value)}>
+  <select id="sort" value={sort} onChange={(e) => (setSort(e.target.value), setCurrentPage(0), setForcePage(0))}>
     <option value="title">Title</option>
-    <option value="author">Author</option>
-    <option value="isbn">ISBN</option>
+    {sortOptions.map((item, index) => (
+                            <option value={item} key={index}>
+                                {item}
+                            </option>
+                        ))}
   </select>
-  <button onClick={() => fetchBooks()} className="btn-sort">Sort</button>
 </div>
 
 <form 
-        className="flex items-center App__search" 
-        onSubmit={handleSubmit}
+        className="flex items-center App__search"
       >
         <div className="relative w-80">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -221,10 +259,9 @@ const requestPost = async () => {
             type="text" 
             id="search" 
             value={search} 
-            onChange={(e) => setSearch(e.target.value)} 
+            onChange={(e) => (setSearch(e.target.value), setCurrentPage(0), setForcePage(0))}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
             placeholder="Search" 
-            required
           />
         </div>
         <button 
@@ -241,7 +278,7 @@ const requestPost = async () => {
 <div className="bg-white ">
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className=" App__book-list grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        {data.map(
+        {books.map(
               (book: {
                 id: number;
                 isbn: string;
@@ -263,7 +300,18 @@ const requestPost = async () => {
               </div>
               <p className="mt-2 text-sm " style={{color: "grey", fontSize:"15px"}}>ISBN: {book.isbn}</p>
 
-              <button
+              <Button 
+              type="button"
+              className="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-4 py-2 text-center mr-2 mb-2 dark:focus:ring-yellow-900"
+                        style={{ width: "100px", height: "35px", backgroundColor: "blue" }}
+                        onClick={() => ( navigate(`/editBook/${book.id}`))}
+                      >
+                        Details
+                      </Button>
+
+
+
+              {/* <button
                       type="button"
                       className="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-4 py-2 text-center mr-2 mb-2 dark:focus:ring-yellow-900"
                       onClick={() => editBook(book, "Edit")}
@@ -281,7 +329,7 @@ const requestPost = async () => {
   <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
 </svg>
                       Delete
-                    </button>
+              </button> */}
                     
               <h1 className="mt-3 text-sm" style={{color: "black", fontSize:"20px"}}>{book.title}</h1>
               <h3 className="mt-2 text-sm ">{book.author}</h3>
@@ -317,8 +365,7 @@ const requestPost = async () => {
   </div>
     </div>
 
-
-      {/* Modal Para Inserir Alunos: POST */}
+      Modal Para Inserir Alunos: POST *
       <Modal isOpen={modalNewBook}>
         <ModalHeader> Add Book</ModalHeader>
         <ModalBody>
