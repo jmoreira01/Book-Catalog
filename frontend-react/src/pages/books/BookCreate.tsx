@@ -5,7 +5,7 @@ import { BookCreateDTO } from '../../models/books/BookCreateDTO';
 import { BookDTO } from '../../models/books/BookDTO';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../../helpers/Toast';
-import "../../styles/BookCreate.css"
+import "../../styles/newBook.css"
 import Input from "../../components/Input";
 import Button from 'react-bootstrap/Button';
 

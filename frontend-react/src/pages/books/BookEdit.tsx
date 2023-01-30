@@ -1,12 +1,12 @@
-/* import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Col, Row } from "reactstrap";
+import { Button } from "reactstrap";
 import Input from "../../components/Input";
 import Toast from "../../helpers/Toast";
 import { BookDTO } from "../../models/books/BookDTO";
 import { BookEditDTO } from "../../models/books/BookEditDTO";
 import { BookService } from "../../services/BookService";
-import "../../styles/BookEdit.css";
+import "../../styles/editBook.css";
 
 export default function BookEdit() {
     const { id } = useParams<{ id: string }>();
@@ -30,12 +30,12 @@ export default function BookEdit() {
         var response = await bookService.GetById(id);
 
         if (response.success !== true) {
-            Toast.Show("error", "Erro ao carregar o livro!");
+            Toast.Show("error", "Book not loaded!");
             return;
         }
 
         if (response.obj == null) {
-            Toast.Show("error", "livro não existe!");
+            Toast.Show("error", "Not Found!");
             return;
         }
         setBook(response.obj);
@@ -78,35 +78,32 @@ export default function BookEdit() {
         navigate(-1);
     };
 
+ 
   return (
-    <Row className="editBookContainer">
-      <Col></Col>
-
-      <Col className="border">
-        <br />
-        <h2>Detalhes</h2>
-        <div className="form-group">
-          <label>Id </label>
-          <input type="number" className="form-control" readOnly value={id} />
-          <br />
-          
-          <Input
+    <div className="new-book-details">
+      <h2>Book Details</h2>
+      <div className="details-container">
+        <div className="field">
+          <label>Id:</label>
+          <input type="number" value={id} readOnly />
+        </div>
+        <Input
               
-                isBook={true}
-                id={book && book.author}
-                onChange={handleChange}
-                isbn={book && book.isbn}
-                title={book && book.title}
-                price={book && book.price}
-            />
+              isBook={true}
+              id={book && book.id}
+              onChange={handleChange}
+              isbn={book && book.isbn}
+              title={book && book.title}
+              price={book && book.price}
+          />
           <Button
-            style={{ marginLeft: "80px", backgroundColor: "blue" }}
+            style={{ marginLeft: "80px", backgroundColor: "yellow" }}
             onClick={updateBook}
           >
-            Salvar
+            Save
           </Button>{" "}
-          <Button style={{ backgroundColor: "darkgreen" }} onClick={goBack}>
-            Voltar
+          <Button style={{ backgroundColor: "blue" }} onClick={goBack}>
+            Go Back
           </Button>{" "}
           <Button
             style={{ marginLeft: "80px", backgroundColor: "red" }}
@@ -114,11 +111,7 @@ export default function BookEdit() {
           >
             Excluir
           </Button>
-          <br />
-          <br />
-        </div>
-      </Col>
-      <Col></Col>
-    </Row>
+    </div>    
+    </div>
   );
-}*/
+};
