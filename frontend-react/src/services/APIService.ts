@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 class APIServiceClass{
-    private url: string = (process.env.NODE_ENV === 'development') ? "https://localhost:7080/api" : "/api";
+    private url: string = (process.env.NODE_ENV === 'development') ? "https://localhost:7180/api" : "/api";
     private instance = axios.create();
     GetURL(): string {
         return this.url;
