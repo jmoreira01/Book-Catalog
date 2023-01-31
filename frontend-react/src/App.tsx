@@ -31,9 +31,6 @@ import BookIndex from "./pages/books/BookIndex";
           }
         </Routes>
         <ToastContainer position={toast.POSITION.TOP_RIGHT} autoClose={3000} />
-        <div>
-        <p>Hello World</p>
-      </div>
       </div>
     );
   }
