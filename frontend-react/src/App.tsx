@@ -1,6 +1,4 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Books from "./pages/books/Books";
 import { toast, ToastContainer } from "react-toastify";

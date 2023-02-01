@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
-  const sortOptions = ["ISBN", "Title", "Author", "Price"];
+  const sortOptions = ["Isbn", "Title", "Author", "Price"];
   const [sort, setSort] = useState(""); // a string that holds the sort order.
   const [pageCount, setPageCount] = useState(1);
   const [updateData, setUpdateData] = useState(true); // whether the data should be updated or not.
@@ -73,6 +73,7 @@ export default function App() {
 
       <div className="App__sort">
         <label htmlFor="sort"></label>
+
         <select
           id="sort"
           value={sort}
@@ -80,7 +81,6 @@ export default function App() {
             setSort(e.target.value), setCurrentPage(0), setForcePage(0)
           )}
         >
-          <option value="title">Title</option>
           {sortOptions.map((item, index) => (
             <option value={item} key={index}>
               {item}

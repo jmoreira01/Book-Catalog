@@ -39,12 +39,13 @@ namespace BookCatalogApp.DAL.Repositories.Books
         {
             return await _context.Books.FindAsync(id);
         }
+
         public async Task<PaginatedList<Book>> GetBooks(string sort, string search, int currentPage, int pageSize)
         {
             PaginatedList<Book> response = new PaginatedList<Book>();
 
-            //var query = _context.Books.Include(a => a.Author).AsQueryable(); !Vai buscar por autores.
-            var query = _context.Books.AsQueryable();
+            
+            var query = _context.Books.Include(a => a.Author).AsQueryable();
 
             if (sort.Count() > 0 && sort != null)
             {
@@ -53,13 +54,13 @@ namespace BookCatalogApp.DAL.Repositories.Books
                     case "isbn":
                         query = query.OrderBy(x => x.Isbn);
                         break;
-                    case "título":
+                    case "title":
                         query = query.OrderBy(x => x.Title);
                         break;
-                    case "autor":
-                        query = query.OrderBy(x => x.Author);
+                    case "author":
+                        query = query.OrderBy(x => x.Author.Name);
                         break;
-                    case "preço":
+                    case "price":
                         query = query.OrderBy(x => x.Price);
                         break;
                     default:
@@ -75,7 +76,7 @@ namespace BookCatalogApp.DAL.Repositories.Books
                 n.Title.Contains(search) 
                 || n.Isbn.ToString().Contains(search) 
                 || n.Price.ToString().Contains(search) 
-                || n.Author.Contains(search));
+                || n.Author.Name.Contains(search));
             }
 
             response.TotalRecords = query.Count();
