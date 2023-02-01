@@ -1,4 +1,5 @@
 ﻿
+using BookCatalogApp.Infrastructure.Entities;
 using ServiceStack.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,17 +20,20 @@ namespace BookCatalogApp.Models
         public string Title { get; set; } = null!;
 
         [System.ComponentModel.DataAnnotations.Required]
-        public string Author { get; set; } = null!;
-
-        [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.Range(0, 999999, ErrorMessage = "Value must be between {0} and {1}. Can´t be negative!")]
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }
 
+
+        [System.ComponentModel.DataAnnotations.Required]
+        public string AuthorId { get; set; }
+
+        public Author Author { get; set; } = null!;
+
         // [JsonIgnore] para esconder a propriedade (teste)
         public bool IsDeleted { get; set; }
 
-        public void DeleteBooks()
+        public void DeleteBook()
         {
             this.IsDeleted = true;
         }

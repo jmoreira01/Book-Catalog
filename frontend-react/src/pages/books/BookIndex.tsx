@@ -82,9 +82,8 @@ export default function BookIndex() {
         console.log(error);
       });
   };
-  //end
 
-  //data updated
+
   useEffect(() => {
     if (updateData) {
       requestGet();

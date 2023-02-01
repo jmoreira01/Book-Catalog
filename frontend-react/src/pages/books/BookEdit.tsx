@@ -47,7 +47,6 @@ export default function BookEdit() {
             isbn: book.isbn,
             title: book.title,
             price: book.price,
-            //image: book.image,
             author: book.author,
         };
 
