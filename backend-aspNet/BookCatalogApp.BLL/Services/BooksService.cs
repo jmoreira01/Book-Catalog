@@ -2,7 +2,7 @@
 using BookCatalogApp.Infrastructure.Helpers;
 using BookCatalogApp.Infrastructure.Interfaces.Repositories;
 using BookCatalogApp.Infrastructure.Interfaces.Service;
-using BookCatalogApp.Infrastructure.Models;
+using BookCatalogApp.Infrastructure.Models.Books;
 
 namespace BookCatalogApp.BLL.Services
 {
