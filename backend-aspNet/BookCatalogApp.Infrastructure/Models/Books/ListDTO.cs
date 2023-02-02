@@ -1,5 +1,5 @@
 ﻿using BookCatalogApp.Infrastructure.Entities;
-
+using BookCatalogApp.Models;
 
 namespace BookCatalogApp.Infrastructure.Models.Books
 {
@@ -19,7 +19,7 @@ namespace BookCatalogApp.Infrastructure.Models.Books
             Id = book.Id;
             Isbn = book.Isbn;
             Title = book.Title;
-            AuthorId = book.AuthorId;
+            AuthorId = book.Author.Id;
             AuthorName = book.Author.Name;
             Price = book.Price;
             IsDeleted = book.IsDeleted;

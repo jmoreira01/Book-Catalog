@@ -22,7 +22,7 @@ namespace BookCatalogApp.DAL.Repositories.Authors
         }
         public async Task<Author?> Create(Author author)
         {
-            _context.Entry<Author>(author).CurrentValues.SetValues(author);
+            await _context.Authors.AddAsync(author);
             await _context.SaveChangesAsync();
             return author;
         }

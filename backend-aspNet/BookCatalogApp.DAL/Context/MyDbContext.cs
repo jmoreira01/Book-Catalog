@@ -1,4 +1,5 @@
-﻿using BookCatalogApp.Models;
+﻿using BookCatalogApp.Infrastructure.Entities;
+using BookCatalogApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookCatalogApp.DAL.Context
@@ -22,12 +23,12 @@ namespace BookCatalogApp.DAL.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Book>().HasIndex(b => b.Isbn).IsUnique(); //ISBN Unico
+            modelBuilder.Entity<Book>().HasIndex(b => b.Isbn).IsUnique(); //ISBN Unique
             modelBuilder.Entity<Book>().Property<bool>("IsDeleted");
             modelBuilder.Entity<Book>().HasQueryFilter(m => EF.Property<bool>(m, "IsDeleted") == false); //SOFT Delete
 
             modelBuilder.Entity<Author>().Property<bool>("isDeleted");
-            modelBuilder.Entity<Author>().HasQueryFilter(m => EF.Property<bool>(m, "isDeleted") == false);
+            modelBuilder.Entity<Author>().HasQueryFilter(m => EF.Property<bool>(m, "isDeleted") == false); //SOFT Delete
 
             modelBuilder.Entity<Book>().HasData(
                 new Book
@@ -58,7 +59,52 @@ namespace BookCatalogApp.DAL.Context
                  }
 
                 );
-              
+
+            modelBuilder.Entity<Author>().HasData(
+
+                new Author
+                {
+                    Id = 1,
+                    Name = "Jojo Majo",
+                    Country = "Russia"
+                },
+                new Author
+                {
+                    Id = 2,
+                    Name = "Sofia Mello",
+                    Country = "Portugal"
+                }
+            );
+
+        }
+
+        public override int SaveChanges()
+        {
+            UpdateSoftDeleteStatuses();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            UpdateSoftDeleteStatuses();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void UpdateSoftDeleteStatuses()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.CurrentValues["isDeleted"] = false;
+                        break;
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Modified;
+                        entry.CurrentValues["isDeleted"] = true;
+                        break;
+                }
+            }
         }
     }
 }
