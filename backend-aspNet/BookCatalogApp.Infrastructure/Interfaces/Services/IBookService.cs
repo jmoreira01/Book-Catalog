@@ -11,10 +11,11 @@ namespace BookCatalogApp.Infrastructure.Interfaces.Service
     public interface IBookService
     {
         Task<MessagingHelper<BookDTO>> GetById(int id);
+        Task<PaginatedList<ListDTO>> GetAll(Search search);
         Task<MessagingHelper<int>> Create(CreateDTO createBook);
         Task<MessagingHelper<BookDTO>> Update(EditDTO editBook);
         Task<MessagingHelper> Delete(DeleteDTO deleteBook);
-        Task<PaginatedList<ListDTO>> GetAll(Search search);
+        
 
     }
 }
