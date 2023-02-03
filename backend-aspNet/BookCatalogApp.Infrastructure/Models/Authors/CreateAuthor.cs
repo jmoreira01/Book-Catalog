@@ -1,13 +1,6 @@
 ﻿using BookCatalogApp.Infrastructure.Entities;
-using BookCatalogApp.Infrastructure.Models.Authors;
 using FluentValidation;
-using Nest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace BookCatalogApp.Infrastructure.Models.Authors
 {
@@ -15,9 +8,9 @@ namespace BookCatalogApp.Infrastructure.Models.Authors
     {
         public string Name { get; set; }
         public string Country { get; set; }
-        public Entities.Author ToEntities()
+        public Author ToEntities()
         {
-            var author = new Entities.Author();
+            var author = new Author();
             author.Name = Name;
             author.Country = Country;
             return author;

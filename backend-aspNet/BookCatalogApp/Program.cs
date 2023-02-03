@@ -1,9 +1,11 @@
-using BookCatalogApp;
-using BookCatalogApp.BLL.Services;
+using BookCatalogApp.BLL.Services.Authors;
+using BookCatalogApp.BLL.Services.Books;
 using BookCatalogApp.DAL.Context;
+using BookCatalogApp.DAL.Repositories.Authors;
 using BookCatalogApp.DAL.Repositories.Books;
 using BookCatalogApp.Infrastructure.Interfaces.Repositories;
 using BookCatalogApp.Infrastructure.Interfaces.Service;
+using BookCatalogApp.Infrastructure.Interfaces.Services;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,10 +22,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MyDbContext>();
 
-builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookService, BooksService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
-//builder.Services.AddScoped<IAuthorsService, AuthorsService>();
-//builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
+builder.Services.AddScoped<IAuthorService, AuthorsService>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 var app = builder.Build();
 

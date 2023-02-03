@@ -6,16 +6,15 @@ namespace BookCatalogApp.DAL.Context
 {
     public class MyDbContext : DbContext
     {
-        public DbSet<Book> Books { get; set; } = null!;
-
-        public DbSet<Author> Authors { get; set; } = null!;
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
 
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer
-                (@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = BookCatalogInitial; Integrated Security = True;");
+                (@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = BookCatalogba; Integrated Security = True;");
         }
 
 
@@ -30,13 +29,35 @@ namespace BookCatalogApp.DAL.Context
             modelBuilder.Entity<Author>().Property<bool>("isDeleted");
             modelBuilder.Entity<Author>().HasQueryFilter(m => EF.Property<bool>(m, "isDeleted") == false); //SOFT Delete
 
+
+            modelBuilder.Entity<Author>().HasData(
+
+               new Author
+               {
+                   Id = 1,
+                   Name = "Joana Roque",
+                   Country = "Russia"
+               },
+               new Author
+               {
+                   Id = 2,
+                   Name = "Joana Gentil Martins",
+                   Country = "Portugal"
+               },
+               new Author
+               {
+                   Id = 3,
+                   Name = "Colleen Hoover",
+                   Country = "Portugal"
+               }
+           );
             modelBuilder.Entity<Book>().HasData(
                 new Book
                 {
                     Id = 1,
                     Isbn = 9789899087545,
                     Title = "Cozinhar com Sobras",
-                    AuthorId = "Joana Roque",
+                    AuthorId = 1,
                     Price = 17.91M
                 },
 
@@ -45,7 +66,7 @@ namespace BookCatalogApp.DAL.Context
                     Id = 2,
                     Isbn = 9789897776588,
                     Title = "Torna-te o Amor da Tua Vida",
-                    AuthorId = "Joana Gentil Martins",
+                    AuthorId = 2,
                     Price = 14.31M
                 },
 
@@ -54,27 +75,11 @@ namespace BookCatalogApp.DAL.Context
                      Id = 3,
                      Isbn = 9789896237257,
                      Title = "Isto Começa Aqui",
-                     AuthorId = "Colleen Hoover",
+                     AuthorId = 3,
                      Price = 19.45M
                  }
 
                 );
-
-            modelBuilder.Entity<Author>().HasData(
-
-                new Author
-                {
-                    Id = 1,
-                    Name = "Jojo Majo",
-                    Country = "Russia"
-                },
-                new Author
-                {
-                    Id = 2,
-                    Name = "Sofia Mello",
-                    Country = "Portugal"
-                }
-            );
 
         }
 

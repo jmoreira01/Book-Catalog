@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Hjjw9l27DmnQ+y/jjzHDHSJr8qNGEeGCfbU4HTUe7FJNZH2o11ZWAk1jBdJNwPEL0/qayUIKZ4VQVhQSFj3YfQ==",
+  "dgSpecHash": "YT/F7HupLU4BmFNr3GScBGAGHf/nemWEaLSE2iwWtChcvuTq1Y6PXvV0OdGFBXGkYwg6u78s5g6irQNjoYegpQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\jorge\\Documents\\GitHub\\book-catalog\\backend-aspNet\\BookCatalogApp.DAL\\BookCatalogApp.DAL.csproj",
   "expectedPackageFiles": [
@@ -23,6 +23,7 @@
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.relational.design\\2.0.0-preview1-final\\microsoft.entityframeworkcore.relational.design.2.0.0-preview1-final.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.2\\microsoft.entityframeworkcore.sqlserver.7.0.2.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver.design\\2.0.0-preview1-final\\microsoft.entityframeworkcore.sqlserver.design.2.0.0-preview1-final.nupkg.sha512",
+    "C:\\Users\\jorge\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.2\\microsoft.entityframeworkcore.tools.7.0.2.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

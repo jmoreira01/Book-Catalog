@@ -2,7 +2,8 @@
 using BookCatalogApp.Infrastructure.Helpers;
 using BookCatalogApp.Infrastructure.Interfaces.Repositories;
 using BookCatalogApp.Models;
-using Microsoft.EntityFrameworkCore;                                                            
+using Microsoft.EntityFrameworkCore;
+using BookCatalogApp.Infrastructure.Entities;
 
 namespace BookCatalogApp.DAL.Repositories.Books
 {

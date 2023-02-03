@@ -19,8 +19,8 @@ namespace BookCatalogApp.Infrastructure.Models.Books
             Id = book.Id;
             Isbn = book.Isbn;
             Title = book.Title;
-            AuthorId = book.Author.Id;
-            AuthorName = book.Author.Name;
+            AuthorId = book.AuthorId;
+            AuthorName = book.Author.Name; 
             Price = book.Price;
             IsDeleted = book.IsDeleted;
         }

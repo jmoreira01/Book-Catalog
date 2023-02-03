@@ -7,7 +7,7 @@ namespace BookCatalogApp.Infrastructure.Models.Books
         public long Id { get; set; }
         public long Isbn { get; set; }
         public string Title { get; set; }
-        public string AuthorId { get; set; }
+        public int AuthorId { get; set; }
         public decimal Price { get; set; }
     }
     public class EditDTOValidator : AbstractValidator<EditDTO> //changed to internal to solve the error
