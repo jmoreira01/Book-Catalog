@@ -4,16 +4,16 @@ using BookCatalogApp.Infrastructure.Interfaces.Repositories;
 using BookCatalogApp.Infrastructure.Interfaces.Service;
 using BookCatalogApp.Infrastructure.Models.Books;
 
-namespace BookCatalogApp.BLL.Services
+namespace BookCatalogApp.BLL.Services.Books
 {
-    public class  BookService : IBookService
+    public class  BooksService : IBookService
 
     {
         private readonly MyDbContext _context;
         private IBookService _bookService;
         private IBookRepository _bookRepository;
 
-        public BookService(IBookRepository bookRepository, MyDbContext context)
+        public BooksService(IBookRepository bookRepository, MyDbContext context)
         {
             _context = context;
             _bookRepository = bookRepository;
@@ -132,6 +132,30 @@ namespace BookCatalogApp.BLL.Services
             }
 
             return response;
+        }
+
+        public async Task<MessagingHelper<BookDTO>> GetById(int id)
+        {
+            MessagingHelper<BookDTO> result = new();
+            try
+            {
+                var responseRepository = await _bookRepository.GetById(id);
+                if (responseRepository == null)
+                {
+                    result.Success = false;
+                    result.Message = "Error! No data to show.";
+                    return result;
+                }
+                var bookResponse = new BookDTO(responseRepository);
+                result.Obj = bookResponse;
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "There was an error getting the books!";
+            }
+            return result;
         }
 
         public async Task<MessagingHelper<BookDTO>> Update(EditDTO editBook)

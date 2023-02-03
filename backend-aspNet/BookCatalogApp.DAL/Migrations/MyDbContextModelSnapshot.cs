@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BookCatalogApp.Migrations
+namespace BookCatalogApp.DAL.Migrations
 {
     [DbContext(typeof(MyDbContext))]
     partial class MyDbContextModelSnapshot : ModelSnapshot
@@ -21,6 +21,53 @@ namespace BookCatalogApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BookCatalogApp.Infrastructure.Entities.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Country = "Russia",
+                            Name = "Joana Roque",
+                            isDeleted = false
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Country = "Portugal",
+                            Name = "Joana Gentil Martins",
+                            isDeleted = false
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Country = "Portugal",
+                            Name = "Colleen Hoover",
+                            isDeleted = false
+                        });
+                });
+
             modelBuilder.Entity("BookCatalogApp.Models.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -29,9 +76,8 @@ namespace BookCatalogApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -48,6 +94,8 @@ namespace BookCatalogApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("Isbn")
                         .IsUnique();
 
@@ -57,7 +105,7 @@ namespace BookCatalogApp.Migrations
                         new
                         {
                             Id = 1,
-                            Author = "Joana Roque",
+                            AuthorId = 1,
                             IsDeleted = false,
                             Isbn = 9789899087545L,
                             Price = 17.91m,
@@ -66,7 +114,7 @@ namespace BookCatalogApp.Migrations
                         new
                         {
                             Id = 2,
-                            Author = "Joana Gentil Martins",
+                            AuthorId = 2,
                             IsDeleted = false,
                             Isbn = 9789897776588L,
                             Price = 14.31m,
@@ -75,12 +123,28 @@ namespace BookCatalogApp.Migrations
                         new
                         {
                             Id = 3,
-                            Author = "Colleen Hoover",
+                            AuthorId = 3,
                             IsDeleted = false,
                             Isbn = 9789896237257L,
                             Price = 19.45m,
                             Title = "Isto Começa Aqui"
                         });
+                });
+
+            modelBuilder.Entity("BookCatalogApp.Models.Book", b =>
+                {
+                    b.HasOne("BookCatalogApp.Infrastructure.Entities.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("BookCatalogApp.Infrastructure.Entities.Author", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

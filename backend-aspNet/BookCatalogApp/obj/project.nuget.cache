@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YwNwLuCmtdiYhEEKaZfRhY9gIPTPbB8Fhlp2MimCz7vHSmiQKmOy09v7k4Hd+O2esT58I0+rhlzd5hLftN4HjA==",
+  "dgSpecHash": "3U8W8AJy2ph99L7R/0iRThgqi6lNLyPV7B46aBQ3JjQHR3BB/8Ke2+eC0kuGJz/bj611uXKdpgljdlJ8XDTUsQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\jorge\\Documents\\GitHub\\book-catalog\\backend-aspNet\\BookCatalogApp\\BookCatalogApp.csproj",
   "expectedPackageFiles": [

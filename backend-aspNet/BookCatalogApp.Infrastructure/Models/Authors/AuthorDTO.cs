@@ -12,7 +12,7 @@ namespace BookCatalogApp.Infrastructure.Models.Authors
         public string Name { get; set; }
         public string Country { get; set; }
 
-        public AuthorDTO(Entities.Author author)
+        public AuthorDTO(Author author)
         {
             Name = author.Name;
             Country = author.Country;

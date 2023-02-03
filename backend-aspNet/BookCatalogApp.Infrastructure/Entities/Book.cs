@@ -1,6 +1,6 @@
-﻿
-using BookCatalogApp.Infrastructure.Entities;
+﻿using BookCatalogApp.Infrastructure.Entities;
 using ServiceStack.DataAnnotations;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,13 +24,12 @@ namespace BookCatalogApp.Models
         [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }
 
+        public int AuthorId { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
-        public string AuthorId { get; set; }
-
-        public Author Author { get; set; } = null!;
+        public Author Author { get; set; }
 
         // [JsonIgnore] para esconder a propriedade (teste)
+        [DefaultValue(false)]
         public bool IsDeleted { get; set; }
 
         public void DeleteBook()
