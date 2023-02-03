@@ -36,6 +36,14 @@ namespace CatalogoLivros.Controllers
             return await _bookService.Update(editBook);
         }
 
+        [HttpPost("{id}")]
+
+        public async Task<MessagingHelper<BookDTO>> GetById(int id)
+        {
+
+            return await _bookService.GetById(id);
+        }
+
 
         [HttpPost("Delete")]
         public async Task<MessagingHelper> Delete(DeleteDTO deleteBook)

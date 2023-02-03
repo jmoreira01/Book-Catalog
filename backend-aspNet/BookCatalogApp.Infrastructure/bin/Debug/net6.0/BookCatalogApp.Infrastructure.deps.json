@@ -13,6 +13,7 @@
           "FluentValidation": "11.4.0",
           "Microsoft.EntityFrameworkCore": "7.0.2",
           "Microsoft.EntityFrameworkCore.Design": "7.0.2",
+          "Microsoft.EntityFrameworkCore.Tools": "7.0.2",
           "Microsoft.SqlServer.Server": "1.0.0",
           "NEST": "7.17.5",
           "ServiceStack.Interfaces": "6.5.0"
@@ -119,6 +120,11 @@
             "assemblyVersion": "7.0.2.0",
             "fileVersion": "7.0.222.58006"
           }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Tools/7.0.2": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "7.0.2"
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
@@ -398,6 +404,13 @@
       "sha512": "sha512-TbTGOdaGtjps3GP7rLWXEXzmP+EXhV8AwPE/ov0QYhs5i5vKZX5ZpVLMnco2MeMtiPgLyxE7DhQT8s1wlu190g==",
       "path": "microsoft.entityframeworkcore.relational/7.0.2",
       "hashPath": "microsoft.entityframeworkcore.relational.7.0.2.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Tools/7.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0Jx9feeGsUUlI+PEFkADyfQrGU+UIYh9N1I8ZO6X5bjYSKL2V1empkGTupvfrI7S9h4uA7aY8GQpjkCmIep7dg==",
+      "path": "microsoft.entityframeworkcore.tools/7.0.2",
+      "hashPath": "microsoft.entityframeworkcore.tools.7.0.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/7.0.0": {
       "type": "package",
