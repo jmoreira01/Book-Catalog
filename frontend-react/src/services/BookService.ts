@@ -33,7 +33,7 @@ export class BookService {
         } catch (error) {
             return new PaginatedList<BookListDTO>(
                 false,
-                "Erro ao obter a informação dos Livros",
+                "Book data not found",
                 "",
                 [],
                 0,
@@ -57,7 +57,7 @@ export class BookService {
         } catch (error) {
             return new MessagingHelper(
                 false,
-                "Erro ao ligar ao servidor para criar Livro!",
+                "Server connection Error. Author:CREATION failed!",
                 null,
             );
         }
@@ -75,7 +75,7 @@ export class BookService {
         } catch (error) {
             return new MessagingHelper(
                 false,
-                "Erro ao ligar ao servidor para ir buscar informação do livro!",
+                "Server connection Error. Book data not found!",
                 null,
             );
         }
@@ -97,7 +97,7 @@ export class BookService {
         } catch (error) {
             return new MessagingHelper<BookDTO | null>(
                 false,
-                "Erro ao ligar ao servidor para editar o livro",
+                "Server connection Error. Author:EDIT failed!",
                 null,
             );
         }
@@ -121,7 +121,7 @@ export class BookService {
         } catch (error) {
             return new MessagingHelper(
                 false,
-                "Erro ao ligar ao servidor para deletar livro",
+                "Server connection Error. Author:DELETE failed!",
                 null,
             );
         }
