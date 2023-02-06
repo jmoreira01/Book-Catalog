@@ -11,8 +11,8 @@ export class BookCreateDTO {
 }
 
 export const CreateBookDTOSchema = Joi.object({
-    isbn: Joi.number().min(0).messages({ "number.base": "Isbn deve ser um número", "number.min": "Isbn não pode ser inferior a 0" }),
-    title: GenericNotEmptySchema("Título do livro"),
-    author: Joi.number().min(0).messages({ "number.base": "Author deve estar preenchido" }),
-    price: Joi.number().min(0).messages({ "number.base": "Preço deve ser um número", "number.min": "Preço não pode ser inferior a 0" }),
+    isbn: Joi.number().min(0).messages({ "number.base": "Isbn must be a number!", "number.min": "Isbn cant be negative" }),
+    title: GenericNotEmptySchema("Book Title"),
+    author: Joi.number().min(0).messages({ "number.base": "Fil with the author name" }),
+    price: Joi.number().min(0).messages({ "number.base": "Price must be a number", "number.min": "Price cant be negative" }),
 });
