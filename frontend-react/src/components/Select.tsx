@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Toast from "../helpers/Toast";
-//import { AuthorService } from "../services/AuthorService";
+import { AuthorService } from "../services/AuthorService";
 
 export default function Selects(props) {
-  /*const [authors, setAuthors] = useState([]);
+  const [authors, setAuthors] = useState([]);
   const authorService = new AuthorService();
 
   const loadAuthors = async () => {
@@ -21,10 +21,10 @@ export default function Selects(props) {
     setAuthors(response.items);
   };
 
-  loadAuthors();*/
+  loadAuthors();
 
   return (
-    <div></div>   /*<div>
+    <div>
       <label>Author:</label>
       <br />
       <select
@@ -46,6 +46,6 @@ export default function Selects(props) {
           </option>
         ))}
       </select>
-    </div>*/
+    </div>
   );
 }
