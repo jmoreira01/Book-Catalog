@@ -21,7 +21,7 @@ export default function AuthorCreate() {
         });
     };
 
-    const createAuthor = async()  => {
+    const newAuthor = async()  => {
       var responseValidate = CreateAuthorDTOSchema.validate(author,{
           allowUnknown:true,   
       })
@@ -57,15 +57,8 @@ export default function AuthorCreate() {
               isBook={false}
               onChange={handleChange}
             />
-              <Button  style={{ backgroundColor:"blue" }} onClick={createAuthor}>
-                        Add New
-                </Button>{" "}
-
-                <Button style={{ backgroundColor:"red" }} onClick={goBack}>
-                    Go Back
-                </Button>
-              <br />
-              <br />
+                <Button variant="outline-success" onClick={newAuthor}>Add</Button>{' '}
+                <Button variant="outline-danger" onClick={goBack}>Go Back</Button>{' '}
             </div>
           </Col>
           <Col></Col>
