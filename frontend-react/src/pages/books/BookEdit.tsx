@@ -8,76 +8,71 @@ import { BookEditDTO } from "../../models/books/BookEditDTO";
 import { BookService } from "../../services/BookService";
 import "../../styles/editBook.css";
 
-export default function BookEdit() {
-    const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
-    const [book, setBook] = useState<BookDTO>({} as BookDTO);
-    const bookService = new BookService();
+export default function BookEdit () {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [book, setBook] = useState<BookDTO>({} as BookDTO);
+  const bookService = new BookService();
 
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setBook({
-        ...book,
-        [name]: value,
-        });
+  useEffect(() => {
+    loadBook(parseInt(id));
+  }, [id]);
+
+  const handleChange = (e) => {
+    setBook({
+      ...book,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const loadBook = async (bookId) => {
+    const response = await bookService.GetById(bookId);
+
+    if (!response.success) {
+      Toast.Show("error", "Book not loaded!");
+      return;
+    }
+
+    if (!response.obj) {
+      Toast.Show("error", "Not Found!");
+      return;
+    }
+
+    setBook(response.obj);
+  };
+
+  const updateBook = async () => {
+    const updatedBook = {
+      id: parseInt(id),
+      isbn: book.isbn,
+      title: book.title,
+      price: book.price,
+      author: book.author,
     };
 
-    useEffect(() => {
-        loadBook(parseInt(id));
-    }, [id]);
+    const response = await bookService.Edit(updatedBook);
 
-    const loadBook = async (id: number) => {
-        var response = await bookService.GetById(id);
+    if (!response.success) {
+      Toast.Show("error", response.message);
+      return;
+    }
 
-        if (response.success !== true) {
-            Toast.Show("error", "Book not loaded!");
-            return;
-        }
+    Toast.Show("success", response.message);
+    navigate(-1);
+  };
 
-        if (response.obj == null) {
-            Toast.Show("error", "Not Found!");
-            return;
-        }
-        setBook(response.obj);
-    };
+  const deleteBook = async (bookId) => {
+    const response = await bookService.DeleteBook(bookId);
 
-    const updateBook = async () => {
-        const updatedBook: BookEditDTO = {
-            id: parseInt(id),
-            isbn: book.isbn,
-            title: book.title,
-            price: book.price,
-            author: book.author,
-        };
+    if (!response.success) {
+      Toast.Show("error", response.message);
+      return;
+    }
 
-        const response = await bookService.Edit(updatedBook);
+    Toast.Show("success", response.message);
+    navigate(-1);
+  };
 
-        if (response.success !== true) {
-            Toast.Show("error", response.message);
-            return;
-        }
-
-        Toast.Show("success", response.message);
-        goBack();
-    };
-
-    const deleteBook = async (id: number) => {
-        const response = await bookService.DeleteBook(id);
-
-        if (response.success !== true) {
-            Toast.Show("error", response.message);
-            return;
-        }
-
-        Toast.Show("success", response.message);
-        goBack();
-    };
-
-    const goBack = () => {
-        navigate(-1);
-    };
-
- 
   return (
     <div className="new-book-details">
       <h2>Book Details</h2>
@@ -87,30 +82,30 @@ export default function BookEdit() {
           <input type="number" value={id} readOnly />
         </div>
         <Input
-              
-              isBook={true}
-              id={book && book.id}
-              onChange={handleChange}
-              isbn={book && book.isbn}
-              title={book && book.title}
-              price={book && book.price}
-          />
-          <Button
-            style={{ marginLeft: "80px", backgroundColor: "yellow" }}
-            onClick={updateBook}
-          >
-            Save
-          </Button>{" "}
-          <Button style={{ backgroundColor: "blue" }} onClick={goBack}>
-            Go Back
-          </Button>{" "}
+          isBook={true}
+          id={book.id}
+          onChange={handleChange}
+          isbn={book.isbn}
+          title={book.title}
+          price={book.price}
+        />
+        <Button
+          style={{ marginLeft: "80px", backgroundColor: "yellow" }}
+          onClick={updateBook}
+        >
+          Save
+        </Button>{" "}
+        <Button style={{ backgroundColor: "blue" }} onClick={() => navigate(-1)}>
+          Go Back
+        </Button>{" "}
           <Button
             style={{ marginLeft: "80px", backgroundColor: "red" }}
             onClick={() => deleteBook(parseInt(id))}
           >
-            Excluir
+            Delete
           </Button>
     </div>    
     </div>
   );
 };
+

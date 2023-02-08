@@ -3,11 +3,10 @@ import Joi from "joi";
 export class AuthorEditDTO {
     id: number = 0;
     name: string = "";
-    nacionality: string = "";
-    image: string = "";
+    country: string = "";
 }
 
 export const EditAuthorDTOSchema = Joi.object({
-    name: Joi.string().messages({"string.empty": "Fill with the Author name" }),
-    nacionality: Joi.string().messages({"string.empty": "Fill with the Country name" }),
+    name: Joi.string().messages({"string.empty": "Fill the Author Name" }),
+    country: Joi.string().messages({"string.empty": "Fill the Author Country" }),
 });

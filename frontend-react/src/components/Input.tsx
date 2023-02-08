@@ -49,21 +49,13 @@ const Input = (props) => {
             onChange={props.onChange}
             value={props.name}
           />
-          <div className="custom-input-label">País:</div>
+          <div className="custom-input-label">Country:</div>
           <input
             type="text"
             className="custom-input"
             name="nacionality"
             onChange={props.onChange}
             value={props.nacionality}
-          />
-          <div className="custom-input-label">Imagem:</div>
-          <input
-            type="text"
-            className="custom-input"
-            name="image"
-            onChange={props.onChange}
-            value={props.image}
           />
         </div>
       )}

@@ -8,5 +8,5 @@ export class AuthorCreateDTO {
 
 export const CreateAuthorDTOSchema = Joi.object({
     name: Joi.string().messages({"string.empty": "Fill with the author name" }),
-    nacionality: Joi.string().messages({"string.empty": "Fill with the author country" })
+    country: Joi.string().messages({"string.empty": "Fill with the author country" })
 });

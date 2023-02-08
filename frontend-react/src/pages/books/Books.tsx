@@ -57,8 +57,6 @@ export default function App() {
     }
   }, [updateData]);
 
-  // !------------------------------------------------------------------------------------------------!
-
   return (
     <div className="App">
       <h1> Book Catalog</h1>
@@ -153,7 +151,7 @@ export default function App() {
                 id: number;
                 isbn: string;
                 title: string;
-                author: string;
+                authorName: string;
                 price: number;
               }) => (
                 // eslint-disable-next-line no-template-curly-in-string
@@ -200,7 +198,7 @@ export default function App() {
                   >
                     {book.title}
                   </h1>
-                  <h3 className="mt-2 text-sm ">{book.author}</h3>
+                  <h3 className="mt-2 text-sm ">{book.authorName}</h3>
                   <p className="mt-1 text-lg font-medium text-gray-900">
                     {book.price}€
                   </p>

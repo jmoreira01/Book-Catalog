@@ -1,5 +1,5 @@
 import "../../styles/indexBook.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ReactPaginate from "react-paginate";
@@ -8,7 +8,7 @@ import Toast from "../../helpers/Toast";
 import { useNavigate } from "react-router-dom";
 import CardBook from "../../components/CardBook";
 
-export default function BookIndex() {
+export default function BookIndex () {
   const baseUrl = "https://localhost:7180/api/Books/";
   const [data, setData] = useState([]);
   const [updateData, setUpdateData] = useState(true);
@@ -64,7 +64,6 @@ export default function BookIndex() {
     setUpdateData(true);
   };
   
-  //end
 
   //All paginated data
   const requestGet = async () => {
@@ -73,16 +72,14 @@ export default function BookIndex() {
     setPageCount(res.totalPages);
     console.log("total " + total);
 
-    await axios
-      .post(`${baseUrl}/getAll`, getBooks)
-      .then((response) => {
-        setData(response.data.items);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+    try {
+      const response = await axios
+      .post(`${baseUrl}/getAll`, getBooks);
+      setData(response.data.items);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     if (updateData) {
@@ -91,16 +88,18 @@ export default function BookIndex() {
     }
   }, [updateData]);
 
-  const handlePageClick = async (data: any) => {
-    let current = data.selected + 1;
-    setGetBooks({
-      ...getBooks,
-      currentPage: current,
-    });
-    setForcePage(data.selected);
-    setUpdateData(true);
-  };
-
+  const handlePageClick = useCallback(
+    async (data) => {
+      setGetBooks({
+        ...getBooks,
+        currentPage: data.selected + 1,
+      });
+      setForcePage(data.selected);
+      setUpdateData(true);
+    },
+    [getBooks, setForcePage, setUpdateData]
+  );
+  
   return (
 <div className="Book-container">
 <div className="header">
@@ -133,7 +132,7 @@ export default function BookIndex() {
 
 {data.length === 0 && search.length > 2 ? (
   <div className="no-results">
-    <h4>No found!</h4>
+    <h4>Not found!</h4>
   </div>
 ) : (
   <div className="book-cards-container">
@@ -145,7 +144,7 @@ export default function BookIndex() {
             className="details-btn"
             onClick={() => navigate(`/BookEdit/${book.id}`)}
           >
-            Detalhes
+            Details
           </button>
         </div>
       )
