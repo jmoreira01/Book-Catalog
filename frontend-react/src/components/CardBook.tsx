@@ -8,9 +8,6 @@ export default function CardBook (props) {
             <span className="book-author">{props.authorName}</span>
             <span className="book-price">{props.price}</span>
           </div>
-          <div className="book-image">
-            <img src={props.image} alt={props.title} />
-          </div>
       </div>
   );
 }

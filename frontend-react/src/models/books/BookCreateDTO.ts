@@ -7,7 +7,6 @@ export class BookCreateDTO {
     title: string = "";
     author: number = 0;
     price: number = 0;
-    //image: string = "";
 }
 
 export const CreateBookDTOSchema = Joi.object({

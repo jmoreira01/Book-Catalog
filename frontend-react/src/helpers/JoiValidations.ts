@@ -1,15 +1,17 @@
 import Joi, { TopLevelDomainOptions } from "joi";
 
 export const QuantitySchema = () => Joi.number().integer().min(1).required().messages({
-    'any.required': "Quantidade é obrigatória",
-    'number.base': "Quantidade deve ser um número",
-    'number.integer': "Quantidade deve ser um inteiro",
-    'number.min': "Quantidade deve ser no mínimo 1",
+    'any.required': "Quantity required",
+    'number.base': "Quantity must be a number",
+    'number.integer': "Quantity must be a whole number",
+    'number.min': "Quantity must be greater than or equal to 1",
+
 });
 
 export const GenericNotEmptySchema = (fieldName: string) => {
-    var requiredMessage = `Campo ${fieldName} é obrigatório`;
-    var emptyMessage = `Campo ${fieldName} deve estar preenchido`;
+    var requiredMessage = `Field ${fieldName} required`;
+    var emptyMessage = `Field ${fieldName} must not be empty`;
+
 
     return Joi.string().empty().required().messages({
         'any.required': requiredMessage,
@@ -19,15 +21,16 @@ export const GenericNotEmptySchema = (fieldName: string) => {
 }
 
 export const EmailSchema = (checkTLD: false | TopLevelDomainOptions | undefined) => Joi.string().empty().required().email({ tlds: checkTLD }).messages({
-    "any.required": "Email deve estar preenchido",
-    "string.base": "Email é obrigatório",
-    "string.empty": "Email não pode estar vazio",
-    "string.email": "Email deve ser válido"
+    "any.required": "Fill email",
+    "string.base": "Email required",
+    "string.empty": "Email can't be empty",
+    "string.email": "Email should be valid",
+
 })
 
 export const HiddenFieldGenericNotEmptySchema = () => {
-    var requiredMessage = `Campo em falta`;
-    var emptyMessage = `Campo em falta`;
+    var requiredMessage = `Missing required field`;
+    var emptyMessage = `Missing required field`;
 
     return Joi.string().empty().required().messages({
         'any.required': requiredMessage,
