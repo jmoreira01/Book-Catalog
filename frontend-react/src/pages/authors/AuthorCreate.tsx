@@ -1,67 +1,57 @@
 import { useState } from "react";
-import { Button, Col, Row } from "reactstrap";
-import { AuthorService } from '../../services/AuthorService';
-import { AuthorCreateDTO, CreateAuthorDTOSchema } from "../../models/authors/AuthorCreateDTO";
-import { useNavigate } from 'react-router-dom';
-import Toast from '../../helpers/Toast';
-import "../../styles/AuthorCreate.css"
+import { Button } from "reactstrap";
+import { AuthorService } from "../../services/AuthorService";
+import {
+  AuthorCreateDTO,
+  CreateAuthorDTOSchema,
+} from "../../models/authors/AuthorCreateDTO";
+import { useNavigate } from "react-router-dom";
+import Toast from "../../helpers/Toast";
+import "../../styles/authorCreation.css";
 import Input from "../../components/Input";
-
 export default function AuthorCreate() {
-    const [author, setAuthor] = useState<AuthorCreateDTO>(new AuthorCreateDTO());
-    const navigate = useNavigate();
-    const authorService = new AuthorService();
-    const goBack = () => {navigate(-1)};
-    
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-            setAuthor({
-            ...author,
-            [name]: value,
-        });
-    };
+  const [author, setAuthor] = useState(new AuthorCreateDTO());
+  const navigate = useNavigate();
+  const authorService = new AuthorService();
 
-    const newAuthor = async()  => {
-      var responseValidate = CreateAuthorDTOSchema.validate(author,{
-          allowUnknown:true,   
-      })
-      console.log(responseValidate)
-      if(responseValidate.error != null){
-          var message = responseValidate.error!.message;
-          Toast.Show("error",message);
-          return
-        }
-      
-          const response = await authorService.Create(author);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setAuthor({
+      ...author,
+      [name]: value,
+    });
+  };
 
-          if (response.success !== true) {
-              Toast.Show("error", response.message);
-              return;
-          }
+  const newAuthor = async () => {
+    const responseValidate = CreateAuthorDTOSchema.validate(author, {
+      allowUnknown: true,
+    });
 
-          Toast.Show("success", response.message);
-          goBack();
-
-  }
-
-    return (
-        <Row className="newAuthorContainer">
-          <Col></Col>
-    
-          <Col className="border">
-            <br />
-            <h2>Author Creation</h2>
-            <div className="form-group">
-            <Input
-              
-              isBook={false}
-              onChange={handleChange}
-            />
-                <Button variant="outline-success" onClick={newAuthor}>Add</Button>{' '}
-                <Button variant="outline-danger" onClick={goBack}>Go Back</Button>{' '}
-            </div>
-          </Col>
-          <Col></Col>
-        </Row>
-      );
+    if (responseValidate.error) {
+      Toast.Show("error", responseValidate.error.message);
+      return;
     }
+    const response = await authorService.Create(author);
+    if (!response.success) {
+      Toast.Show("error", response.message);
+      return;
+    }
+    Toast.Show("success", response.message);
+    navigate(-1);
+  };
+
+  return (
+    <div className="newAuthorContainer">
+      <h2>Author Creation</h2>
+      <div className="form-group">
+        <Input onChange={handleChange} />
+        <Button variant="outline-success" onClick={newAuthor}>
+          Add
+        </Button>{" "}
+        <Button variant="outline-danger" onClick={() => navigate(-1)}>
+          Go Back
+        </Button>{" "}
+      </div>
+    </div>
+  );
+}

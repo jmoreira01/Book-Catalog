@@ -6,10 +6,9 @@ import Navbar from "./components/Navbar";
 import BookCreate from "./pages/books/BookCreate";
 import BookEdit from "./pages/books/BookEdit";
 import BookIndex from "./pages/books/BookIndex";
-//import AuthorEdit from "./pages/authors/AuthorEdit";
-//import AuthorCreate from "./pages/authors/AuthorCreate ";
-//import AuthorIndex from "./pages/authors/AuthorIndex";
-//import Authors from "./pages/authors/Authors";
+import AuthorEdit from "./pages/authors/AuthorEdit";
+import AuthorCreate from "./pages/authors/AuthorCreate";
+import Authors from "./pages/authors/Authors";
 
   export default function App() {
     return (
@@ -21,12 +20,9 @@ import BookIndex from "./pages/books/BookIndex";
           <Route path='/bookIndex' element={<BookIndex/>} />
           <Route path='/newBook' element={<BookCreate/>} />
           <Route path='/editBook/:id' element={<BookEdit/>} />
-          {/*
           <Route path='/authors' element={<Authors/>} />
           <Route path='/editAuthor/:id' element={<AuthorEdit/>} />
-          <Route path='/createAuthor' element={<AuthorCreate/>} />
-          <Route path='/authorIndex' element={<AuthorIndex/>} />*/
-          }
+          <Route path='/newAuthor' element={<AuthorCreate/>} />
         </Routes>
         <ToastContainer position={toast.POSITION.TOP_RIGHT} autoClose={3000} />
       </div>

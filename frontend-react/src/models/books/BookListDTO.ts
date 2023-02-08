@@ -3,7 +3,6 @@ export interface BookListDTO {
     isbn: number;
     title: string;
     author: number;
-    //authorName: string;
     price: number;
-    //image: string;
+
 }
