@@ -47,7 +47,7 @@ export default function BookEdit () {
       isbn: book.isbn,
       title: book.title,
       price: book.price,
-      author: book.author,
+      authorName: book.authorName,
     };
 
     const response = await bookService.Edit(updatedBook);
