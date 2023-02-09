@@ -25,7 +25,7 @@ export default function BookCreate () {
       id: book.id,
       isbn: book.isbn,
       title: book.title,
-      author: book.author,
+      authorName: book.authorName,
       price: book.price,
     };
 
