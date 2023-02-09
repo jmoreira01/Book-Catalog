@@ -1,11 +1,11 @@
-import Select from "./Select";
+import AuthorSelect from "./AuthorSelect";
 
 const Input = (props) => {
   return (
     <div className="custom-input-container">
       {props.isBook ? (
         <div>
-          <div className="custom-input-label">ISBN:</div>
+          <div className="custom-input-label">Isbn:</div>
           <input
             type="number"
             className="custom-input"
@@ -13,7 +13,7 @@ const Input = (props) => {
             onChange={props.onChange}
             value={props.isbn}
           />
-          <div className="custom-input-label">TITLE:</div>
+          <div className="custom-input-label">Title:</div>
           <input
             type="text"
             className="custom-input"
@@ -21,16 +21,11 @@ const Input = (props) => {
             onChange={props.onChange}
             value={props.title}
           />
-          <div className="custom-input-label">AUTHOR:</div>
-          <input
-            type="text"
-            className="custom-input"
-            name="author"
-            onChange={props.onChange}
-            value={props.author}
-          />
-          <Select value={props.id} onChange={props.onChange} />
-          <div className="custom-input-label">PRICE:</div>
+          <AuthorSelect
+                        value={props.name}
+                        onChange={props.onChange}
+                    />
+          <div className="custom-input-label">Price:</div>
           <input
             type="number"
             className="custom-input"
@@ -41,7 +36,7 @@ const Input = (props) => {
         </div>
       ) : (
         <div>
-          <div className="custom-input-label">Nome:</div>
+          <div className="custom-input-label">Name:</div>
           <input
             type="text"
             className="custom-input"
@@ -53,9 +48,9 @@ const Input = (props) => {
           <input
             type="text"
             className="custom-input"
-            name="nacionality"
+            name="country"
             onChange={props.onChange}
-            value={props.nacionality}
+            value={props.country}
           />
         </div>
       )}
