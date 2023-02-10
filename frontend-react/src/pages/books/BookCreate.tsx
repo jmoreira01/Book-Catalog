@@ -25,9 +25,12 @@ export default function BookCreate () {
       id: book.id,
       isbn: book.isbn,
       title: book.title,
-      authorName: book.authorName,
+      authorId: book.authorId,
       price: book.price,
+      
     };
+    console.log(createBook)
+
 
     const response = await bookService.Create(createBook);
     if (!response.success) {
@@ -49,7 +52,9 @@ export default function BookCreate () {
           <Input isBook={true} onChange={handleChange} />
           <Button variant="outline-success" onClick={newBook}>Add</Button>{" "}
           <Button variant="outline-danger" onClick={back}>Go Back</Button>{" "}
+    
         </div>
+
       </Col>
       <Col />
     </Row>

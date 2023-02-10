@@ -10,13 +10,13 @@ namespace BookCatalogApp.BLL.Services.Books
 
     {
         private readonly MyDbContext _context;
-        private IBookService _bookService;
         private IBookRepository _bookRepository;
 
         public BooksService(IBookRepository bookRepository, MyDbContext context)
         {
             _context = context;
             _bookRepository = bookRepository;
+           
         }
 
         public async Task<MessagingHelper<int>> Create(CreateDTO createBook)
@@ -54,7 +54,7 @@ namespace BookCatalogApp.BLL.Services.Books
             catch (Exception ex)
             {
                 response.Success = false;
-                response.Message = "Error! Try again";
+                response.Message = "Error! Try again. Book not created!";
             }
 
             return response;

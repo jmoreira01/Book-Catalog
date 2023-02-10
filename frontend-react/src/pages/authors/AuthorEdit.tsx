@@ -76,18 +76,26 @@ const AuthorEdit = () => {
     };
 
 return (
-<div>
-    <input type="number" readOnly value={id} />
-    <input
-    name={author.name}
-    onChange={handleChange}
-    country ={author.country}
-    />
-    <Button onClick={updateAuthor}>Save</Button>
-    <Button onClick={() => navigate(-1)}>Go Back</Button>
-    <Button onClick={() => deleteAuthor(parseInt(id))}>Delete</Button>
-    </div>
-    );
-};
+        <div className="author-edit-container">
+          <div className="author-edit-field">
+            <label>Id:</label>
+            <input type="number" value={id} readOnly />
+          </div>
+          <div className="author-edit-field">
+            <label>Name:</label>
+            <input type="text" name="name" value={author.name} onChange={handleChange} />
+          </div>
+          <div className="author-edit-field">
+            <label>Country:</label>
+            <input type="text" name="country" value={author.country} onChange={handleChange} />
+          </div>
+          <div className="author-edit-actions">
+            <Button onClick={updateAuthor}>Save</Button>
+            <Button onClick={() => navigate(-1)}>Go Back</Button>
+            <Button onClick={() => deleteAuthor(parseInt(id))}>Delete</Button>
+          </div>
+        </div>
+      );
+      };
 
 export default AuthorEdit;
