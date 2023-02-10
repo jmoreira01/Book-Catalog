@@ -4,7 +4,6 @@ import { Button } from "reactstrap";
 import Input from "../../components/Input";
 import Toast from "../../helpers/Toast";
 import { BookDTO } from "../../models/books/BookDTO";
-import { BookEditDTO } from "../../models/books/BookEditDTO";
 import { BookService } from "../../services/BookService";
 import "../../styles/editBook.css";
 
@@ -47,7 +46,7 @@ export default function BookEdit () {
       isbn: book.isbn,
       title: book.title,
       price: book.price,
-      authorName: book.authorName,
+      authorId: book.authorId,
     };
 
     const response = await bookService.Edit(updatedBook);

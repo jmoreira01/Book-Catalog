@@ -26,9 +26,9 @@ namespace BookCatalogApp.Models
 
         public int AuthorId { get; set; }
 
-        public Author Author { get; set; }
+        public Author Author { get; set; } = null!;
 
-        // [JsonIgnore] para esconder a propriedade (teste)
+
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
 

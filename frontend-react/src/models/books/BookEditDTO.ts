@@ -6,12 +6,12 @@ export class BookEditDTO {
     isbn: number = 0;
     title: string = "";
     price: number = 0;
-    authorName: string = "";
+    authorId: number = 0; 
 }
 
 export const EditBookDTOSchema = Joi.object({
     isbn: Joi.number().min(0).messages({ "number.base": "Isbn must be a number!", "number.min": "Isbn cant be negative" }),
     title: GenericNotEmptySchema("Book Title"),
-    authorName: Joi.number().min(0).messages({ "number.base": "Fil with the author name" }),
+    authorId: Joi.number().min(0).messages({ "number.base": "Fil with the author name" }),
     price: Joi.number().min(0).messages({ "number.base": "Price must be a number", "number.min": "Price cant be negative" }),
 });

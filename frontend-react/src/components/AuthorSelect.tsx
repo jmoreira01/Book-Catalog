@@ -6,7 +6,7 @@ export default function Selects(props){
     const [authors, setAuthors] = useState([]);
     const authorService = new AuthorService();
     
-    const loadAuthors = async () => {
+    const getAuthors = async () => {
         var response = await authorService.GetAll(1, 100,"", "Nome");
         
         if (response.success !== true) {
@@ -21,7 +21,7 @@ export default function Selects(props){
         setAuthors(response.items);
     };
 
-    loadAuthors();
+    getAuthors();
     
     return(
         <div>
@@ -30,11 +30,11 @@ export default function Selects(props){
                 <select
                 className="custom-input"
                     style={{width: "465px", borderRadius: "5px", borderColor: "lightgray", height: "40px",}}
-                    name="authorName"
+                    name="authorId"
                     onChange={props.onChange}
                     value={props.value}>
 
-                    <option>selecionar</option>
+                    <option>select</option>
                     {authors.map((author) => (
                         <option value={author.id} key={author.id}>
                             {author.name}
