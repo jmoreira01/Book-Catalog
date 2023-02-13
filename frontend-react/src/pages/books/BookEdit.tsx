@@ -77,7 +77,7 @@ export default function BookEdit () {
       <h2>Book Details</h2>
       <div className="details-container">
         <div className="field">
-          <label>Id:</label>
+
           <input type="number" value={id} readOnly />
         </div>
         <Input
@@ -89,7 +89,7 @@ export default function BookEdit () {
           price={book.price}
         />
         <Button
-          style={{ marginLeft: "80px", backgroundColor: "yellow" }}
+          style={{ marginLeft: "80px", backgroundColor: "green" }}
           onClick={updateBook}
         >
           Save

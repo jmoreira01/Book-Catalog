@@ -30,7 +30,7 @@ export default function Authors() {
             setForcePage(data.selected);
         };
 
-    const loadAuthors = async () => {
+    const getAuthors = async () => {
         var response = await authorService.GetAll(
             currentPage, 
             pageSize, 
@@ -53,7 +53,7 @@ export default function Authors() {
 
     useEffect(() => {
         if (updateData) {
-            loadAuthors();
+            getAuthors();
             setUpdateData(false);
         }
     }, [updateData]);
@@ -165,8 +165,6 @@ export default function Authors() {
                         isBook={false}
                         name={author.name}
                         country={author.country}
-                        authorTitle={author.authorTitle == null? 
-                            "none" : author.authorTitle.join(", ")}
                             />
                             <Row>
                                 <Col/>
