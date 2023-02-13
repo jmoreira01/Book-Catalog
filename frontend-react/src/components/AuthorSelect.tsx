@@ -25,7 +25,7 @@ export default function Selects(props){
     
     return(
         <div>
-            <label>Author </label>
+            <label>Author </label> <br />
                 
                 <select
                 className="custom-input"

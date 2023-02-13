@@ -1,47 +1,45 @@
 .new-book-details {
-    padding: 30px;
-    text-align: center;
-    }
-    
-    h2 {
-    margin-bottom: 30px;
-    }
-    
-    .details-container {
-    display: flex;
+    display:flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    }
-    
-    .field {
+  }
+  
+  .details-container {
+    display: block;
+    align-items: center;
+    width: 50%;
+    padding: 20px;
+    border: 1px solid black;
+    margin-top: 20px;
+  }
+  
+  .field {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    }
-    
-    label {
-    width: 100px;
+  }
+  
+  label {
     font-weight: bold;
+    margin-right: 10px;
+    width: 50px;
     text-align: right;
-    margin-right: 20px;
-    }
-    
-    input[type="number"] {
-    width: 300px;
-    padding: 10px;
-    font-size: 14px;
+  }
+  
+  input[type="number"] {
+    width: 200px;
+    height: 30px;
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid black;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    }
-    
-    button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
     cursor: pointer;
-    }
+  }
