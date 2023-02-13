@@ -21,10 +21,7 @@ const Input = (props) => {
             onChange={props.onChange}
             value={props.title}
           />
-          <AuthorSelect
-                        value={props.name}
-                        onChange={props.onChange}
-                    />
+          <AuthorSelect value={props.name} onChange={props.onChange} />
           <div className="custom-input-label">Price:</div>
           <input
             type="number"

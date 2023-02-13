@@ -16,7 +16,7 @@ namespace BookCatalogApp.Infrastructure.Models.Books
             var book = new Book();
             book.Isbn = Isbn;
             book.Title = Title;
-            book.Author.Id = AuthorId;
+            book.AuthorId = AuthorId;
             book.Price = Price;
             return book;
         }
