@@ -33,12 +33,12 @@ namespace BookCatalogApp.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -49,22 +49,22 @@ namespace BookCatalogApp.DAL.Migrations
                         {
                             Id = 1,
                             Country = "Russia",
-                            Name = "Joana Roque",
-                            isDeleted = false
+                            IsDeleted = false,
+                            Name = "Joana Roque"
                         },
                         new
                         {
                             Id = 2,
                             Country = "Portugal",
-                            Name = "Joana Gentil Martins",
-                            isDeleted = false
+                            IsDeleted = false,
+                            Name = "Joana Gentil Martins"
                         },
                         new
                         {
                             Id = 3,
                             Country = "Portugal",
-                            Name = "Colleen Hoover",
-                            isDeleted = false
+                            IsDeleted = false,
+                            Name = "Colleen Hoover"
                         });
                 });
 

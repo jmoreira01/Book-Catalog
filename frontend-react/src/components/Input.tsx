@@ -1,4 +1,5 @@
 import AuthorSelect from "./AuthorSelect";
+import "../styles/components/navbar.css";
 
 const Input = (props) => {
   return (

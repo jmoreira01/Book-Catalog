@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Toast from "../helpers/Toast";
 import { AuthorService } from "../services/AuthorService";
+import "../styles/components/authorSelect.css";
 
 export default function Selects(props){
     const [authors, setAuthors] = useState([]);

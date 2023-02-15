@@ -5,7 +5,7 @@ import Input from "../../components/Input";
 import Toast from "../../helpers/Toast";
 import { BookDTO } from "../../models/books/BookDTO";
 import { BookService } from "../../services/BookService";
-import "../../styles/editBook.css";
+import "../../styles/books/bookEdit.css";
 
 export default function BookEdit () {
   const { id } = useParams<{ id: string }>();

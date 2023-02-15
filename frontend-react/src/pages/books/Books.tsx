@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../.././styles/books.css";
+import "../.././styles/books/books.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "reactstrap";
 import bookExample from "../../assets/bookExample.jpg";
@@ -18,7 +18,7 @@ export default function App() {
   const navigate = useNavigate();
   const [forcePage, setForcePage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize] = useState(3);
   const [books, setBooks] = useState([]);
   const bookService = new BookService();
 
@@ -29,7 +29,7 @@ export default function App() {
     setForcePage(data.selected);
   };
 
-  const loadBooks = async () => {
+  const getBooks = async () => {
     var response = await bookService.GetAll(
       currentPage,
       pageSize,
@@ -52,7 +52,7 @@ export default function App() {
   //useEffect - inifinite requests avoided
   useEffect(() => {
     if (updateData) {
-      loadBooks();
+      getBooks();
       setUpdateData(false); // setData on scope of Use effect to manage data that will modify the app
     }
   }, [updateData]);

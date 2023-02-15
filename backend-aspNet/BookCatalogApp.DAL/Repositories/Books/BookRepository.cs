@@ -10,7 +10,6 @@ namespace BookCatalogApp.DAL.Repositories.Books
     public class BookRepository : IBookRepository
     {
         private readonly MyDbContext _context;
-        private IBookRepository _bookRepository;
 
         public BookRepository(MyDbContext context)
         {

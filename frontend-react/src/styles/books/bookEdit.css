@@ -1,0 +1,45 @@
+.new-book-details {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .details-container {
+    display: block;
+    align-items: center;
+    width: 50%;
+    padding: 20px;
+    border: 1px solid black;
+    margin-top: 20px;
+  }
+  
+  .field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 50px;
+    text-align: right;
+  }
+  
+  input[type="number"] {
+    width: 200px;
+    height: 30px;
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+  }

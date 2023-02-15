@@ -14,11 +14,11 @@ namespace BookCatalogApp.Infrastructure.Entities
         public string Country { get; set; }
         
         [DefaultValue(false)]
-        public bool isDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         public void DeleteAuthor()
         {
-            this.isDeleted = true;
+            this.IsDeleted = true;
         }
     }
 }
