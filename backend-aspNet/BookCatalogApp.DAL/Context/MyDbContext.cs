@@ -14,7 +14,7 @@ namespace BookCatalogApp.DAL.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer
-                (@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = BookCatalogba; Integrated Security = True;");
+                (@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = BookCatalogApp; Integrated Security = True;");
         }
 
 
@@ -26,8 +26,8 @@ namespace BookCatalogApp.DAL.Context
             modelBuilder.Entity<Book>().Property<bool>("IsDeleted");
             modelBuilder.Entity<Book>().HasQueryFilter(m => EF.Property<bool>(m, "IsDeleted") == false); //SOFT Delete
 
-            modelBuilder.Entity<Author>().Property<bool>("isDeleted");
-            modelBuilder.Entity<Author>().HasQueryFilter(m => EF.Property<bool>(m, "isDeleted") == false); //SOFT Delete
+            modelBuilder.Entity<Author>().Property<bool>("IsDeleted");
+            modelBuilder.Entity<Author>().HasQueryFilter(m => EF.Property<bool>(m, "IsDeleted") == false); //SOFT Delete
 
 
             modelBuilder.Entity<Author>().HasData(
@@ -102,11 +102,11 @@ namespace BookCatalogApp.DAL.Context
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.CurrentValues["isDeleted"] = false;
+                        entry.CurrentValues["IsDeleted"] = false;
                         break;
                     case EntityState.Deleted:
                         entry.State = EntityState.Modified;
-                        entry.CurrentValues["isDeleted"] = true;
+                        entry.CurrentValues["IsDeleted"] = true;
                         break;
                 }
             }

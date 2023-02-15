@@ -1,4 +1,5 @@
-﻿using BookCatalogApp.Models;
+﻿using BookCatalogApp.Infrastructure.Entities;
+using BookCatalogApp.Models;
 using FluentValidation;
 
 
@@ -11,9 +12,10 @@ namespace BookCatalogApp.Infrastructure.Models.Books
         public int AuthorId { get; set; }
         public decimal Price { get; set; }
 
-        public Book ToEntities()
+        public Book ToEntities(Author author)
         {
             var book = new Book();
+            book.Author = author;
             book.Isbn = Isbn;
             book.Title = Title;
             book.AuthorId = AuthorId;

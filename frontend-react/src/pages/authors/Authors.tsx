@@ -1,4 +1,4 @@
-import "../../styles/authors.css";
+import "../../styles/authors/authors.css";
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Card,} from "reactstrap";

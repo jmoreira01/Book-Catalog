@@ -1,4 +1,5 @@
 ﻿using BookCatalogApp.DAL.Context;
+using BookCatalogApp.DAL.Repositories.Authors;
 using BookCatalogApp.Infrastructure.Helpers;
 using BookCatalogApp.Infrastructure.Interfaces.Repositories;
 using BookCatalogApp.Infrastructure.Interfaces.Service;
@@ -11,12 +12,13 @@ namespace BookCatalogApp.BLL.Services.Books
     {
         private readonly MyDbContext _context;
         private IBookRepository _bookRepository;
+        private IAuthorRepository _authorRepository;
 
-        public BooksService(IBookRepository bookRepository, MyDbContext context)
+        public BooksService(IBookRepository bookRepository, IAuthorRepository authorRepository, MyDbContext context)
         {
             _context = context;
             _bookRepository = bookRepository;
-           
+            _authorRepository = authorRepository;
         }
 
         public async Task<MessagingHelper<int>> Create(CreateDTO createBook)
@@ -37,10 +39,20 @@ namespace BookCatalogApp.BLL.Services.Books
                 {
                     response.Success = false;
                     response.Message = "ISBN already exist! Please try a different one";
+
                     return response;
                 }
-                
-                var newBook = createBook.ToEntities();
+
+                var authorExist = await _authorRepository.GetById(createBook.AuthorId);
+                if (authorExist == null )
+                {
+                    response.Success = false;
+                    response.Message = "Author no Exist";
+                    return response;
+                }
+
+
+                var newBook = createBook.ToEntities(authorExist);
                 var assistanceInDB = await _bookRepository.Create(newBook);
                 if (assistanceInDB == null)
                 {
@@ -51,7 +63,7 @@ namespace BookCatalogApp.BLL.Services.Books
                 response.Obj = assistanceInDB.Id;
                 response.Message = "SUCCESS!";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 response.Success = false;
                 response.Message = "Error! Try again. Book not created!";

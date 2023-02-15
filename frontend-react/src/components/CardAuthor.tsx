@@ -1,4 +1,4 @@
-import "../styles/authorCard.css";
+import "../styles/components/authorCard.css";
 
 export default function CardAuthor (props) {
   return (

@@ -1,10 +1,9 @@
-import "../../styles/indexBook.css";
+import "../../styles/books/bookIndex.css";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ReactPaginate from "react-paginate";
 import "react-toastify/dist/ReactToastify.css";
-import Toast from "../../helpers/Toast";
 import { useNavigate } from "react-router-dom";
 import CardBook from "../../components/CardBook";
 

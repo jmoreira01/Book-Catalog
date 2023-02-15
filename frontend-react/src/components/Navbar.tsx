@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../styles/navbar.css";
+import "../styles/components/navbar.css";
 
 
 export default function Navbar() {
@@ -22,25 +22,6 @@ export default function Navbar() {
           </li>
           <li className="nav-item">
           <Link className="nav-link" to="/Authors">
-              Authors
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <a href="/Home">Home</a>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/books">
-              Books
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/authors">
               Authors
             </Link>
           </li>
