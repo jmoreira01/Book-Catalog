@@ -5,7 +5,7 @@ import Toast from "../../helpers/Toast";
 import { AuthorDTO } from "../../models/authors/AuthorDTO";
 import { AuthorEditDTO, EditAuthorDTOSchema } from "../../models/authors/AuthorEditDTO";
 import { AuthorService } from "../../services/AuthorService";
-import "../../styles/authorEdit.css"
+import "../../styles/authors/authorEdit.css"
 
 const AuthorEdit = () => {
     const { id } = useParams();

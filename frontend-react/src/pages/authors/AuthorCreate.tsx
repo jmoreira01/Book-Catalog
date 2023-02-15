@@ -7,7 +7,7 @@ import {
 } from "../../models/authors/AuthorCreateDTO";
 import { useNavigate } from "react-router-dom";
 import Toast from "../../helpers/Toast";
-import "../../styles/authorCreation.css";
+import "../../styles/authors/authorCreate.css";
 import Input from "../../components/Input";
 
 export default function AuthorCreate() {
