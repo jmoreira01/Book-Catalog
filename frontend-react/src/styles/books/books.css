@@ -1,0 +1,92 @@
+.App {
+    font-family: sans-serif;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 16px;
+  }
+  
+  .App__add-book {
+    background-color: green;
+    border: none;
+    border-radius: 9999px;
+    color: white;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  .App__add-book:hover,
+  .App__add-book:focus {
+    background-color: #006600;
+    outline: none;
+  }
+  
+  .App__sort label {
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  .App__search {
+    margin-top: 16px;
+  }
+  
+  .App__search input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+  }
+  
+  .App__search button[type="submit"] {
+    background-color: #0077cc;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .App__search button[type="submit"]:hover,
+  .App__search button[type="submit"]:focus {
+    background-color: #005fa1;
+    outline: none;
+  }
+  
+  .App__book-card {
+    position: relative;
+  }
+  
+  .App__book-card img {
+    transition: opacity 0.2s;
+  }
+  
+  .App__book-card img:hover {
+    opacity: 0.75;
+  }
+
+  @media (min-width: 640px) {
+    .App__book-list {
+      margin-top: 32px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .App {
+      padding: 32px;
+    }
+  
+    .App__add-book {
+      font-size: 16px;
+      padding: 12px 24px;
+    }
+  
+    .App__search {
+      display: flex;
+    }
+  
+    .App__search input[type="text"] {
+      margin-right: 16px;
+      margin-bottom: 0;
+    }
+  }
