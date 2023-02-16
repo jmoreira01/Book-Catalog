@@ -68,7 +68,44 @@ export default function App() {
       >
         Add Book +
       </button>
-
+      ----------------------------------------------------------------
+      <div>
+        <label
+          htmlFor="price"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Price
+        </label>
+        <div className="relative mt-1 rounded-md shadow-sm">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"></div>
+          <span className="text-gray-500 sm:text-sm"></span>
+          <input
+            type="text"
+            id="search"
+            value={search}
+            onChange={(e) => (
+              setSearch(e.target.value), setCurrentPage(0), setForcePage(0)
+            )}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search"
+          />
+          <div className="absolute inset-y-0 right-0 flex items-center">
+            <label htmlFor="currency" className="sr-only">
+              Currency
+            </label>
+            <select
+              id="currency"
+              name="currency"
+              className="h-full rounded-md border-transparent bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option>USD</option>
+              <option>CAD</option>
+              <option>EUR</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      ----------------------------------------------------------------
       <div className="App__sort">
         <label htmlFor="sort"></label>
 
@@ -86,7 +123,6 @@ export default function App() {
           ))}
         </select>
       </div>
-
       <form className="flex items-center App__search">
         <div className="relative w-80">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -115,6 +151,7 @@ export default function App() {
             placeholder="Search"
           />
         </div>
+
         <button
           type="submit"
           className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -142,7 +179,6 @@ export default function App() {
           <span className="sr-only">Search</span>
         </button>
       </form>
-
       <div className="bg-white ">
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className=" App__book-list grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
