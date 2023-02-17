@@ -10,21 +10,25 @@ import AuthorEdit from "./pages/authors/AuthorEdit";
 import AuthorCreate from "./pages/authors/AuthorCreate";
 import Authors from "./pages/authors/Authors";
 
-  export default function App() {
-    return (
-      <div>
-        <Navbar/>
-        <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/books' element={<Books/>} />
-          <Route path='/bookIndex' element={<BookIndex/>} />
-          <Route path='/newBook' element={<BookCreate/>} />
-          <Route path='/editBook/:id' element={<BookEdit/>} />
-          <Route path='/authors' element={<Authors/>} />
-          <Route path='/editAuthor/:id' element={<AuthorEdit/>} />
-          <Route path='/newAuthor' element={<AuthorCreate/>} />
-        </Routes>
-        <ToastContainer position={toast.POSITION.TOP_RIGHT} autoClose={3000} />
-      </div>
-    );
-  }
+export default function App() {
+  return (
+    <div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/bookIndex" element={<BookIndex />} />
+        <Route path="/newBook" element={<BookCreate />} />
+        <Route path="/editBook/:id" element={<BookEdit />} />
+        <Route path="/authors" element={<Authors />} />
+        <Route path="/editAuthor/:id" element={<AuthorEdit />} />
+        <Route path="/newAuthor" element={<AuthorCreate />} />
+      </Routes>
+      <ToastContainer position={toast.POSITION.TOP_RIGHT} autoClose={3000} />
+
+      <footer>
+        <p>Copyright © 2023 Book Catalog</p>
+      </footer>
+    </div>
+  );
+}

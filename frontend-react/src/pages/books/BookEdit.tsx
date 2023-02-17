@@ -4,6 +4,7 @@ import { Button } from "reactstrap";
 import Input from "../../components/Input";
 import Toast from "../../helpers/Toast";
 import { BookDTO } from "../../models/books/BookDTO";
+import { BookEditDTO, EditBookDTOSchema } from "../../models/books/BookEditDTO";
 import { BookService } from "../../services/BookService";
 import "../../styles/books/bookEdit.css";
 
@@ -13,19 +14,22 @@ export default function BookEdit () {
   const [book, setBook] = useState<BookDTO>({} as BookDTO);
   const bookService = new BookService();
 
-  useEffect(() => {
-    loadBook(parseInt(id));
-  }, [id]);
+ 
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
     setBook({
-      ...book,
-      [e.target.name]: e.target.value,
+    ...book,
+    [name]: value,
     });
-  };
+};
 
-  const loadBook = async (bookId) => {
-    const response = await bookService.GetById(bookId);
+useEffect(() => {
+  getBook(parseInt(id));
+}, [id]);
+
+  const getBook = async (id: number) => {
+    const response = await bookService.GetById(id);
 
     if (!response.success) {
       Toast.Show("error", "Book not loaded!");
@@ -41,27 +45,37 @@ export default function BookEdit () {
   };
 
   const updateBook = async () => {
-    const updatedBook = {
-      id: parseInt(id),
-      isbn: book.isbn,
-      title: book.title,
-      price: book.price,
-      authorId: book.authorId,
+    var responseValidate = EditBookDTOSchema.validate(book,{
+      allowUnknown:true,
+  })
+  console.log("autor "+book.authorId)
+  if(responseValidate.error != null){
+      var message = responseValidate.error!.message;
+      Toast.Show("error",message);
+      return
+    }
+      const updatedBook: BookEditDTO = {
+        
+          id: parseInt(id),
+          isbn: book.isbn,
+          title: book.title,
+          price: book.price,
+          authorId: book.authorId,
+      };
+
+      const response = await bookService.Edit(updatedBook);
+
+      if (response.success !== true) {
+          Toast.Show("error", response.message);
+          return;
+      }
+
+      Toast.Show("success", response.message);
+      navigate(-1);
     };
 
-    const response = await bookService.Edit(updatedBook);
-
-    if (!response.success) {
-      Toast.Show("error", response.message);
-      return;
-    }
-
-    Toast.Show("success", response.message);
-    navigate(-1);
-  };
-
-  const deleteBook = async (bookId) => {
-    const response = await bookService.DeleteBook(bookId);
+  const deleteBook = async (id: number) => {
+    const response = await bookService.DeleteBook(id);
 
     if (!response.success) {
       Toast.Show("error", response.message);
@@ -82,11 +96,11 @@ export default function BookEdit () {
         </div>
         <Input
           isBook={true}
-          id={book.id}
+          id={book && book.authorId}
           onChange={handleChange}
-          isbn={book.isbn}
-          title={book.title}
-          price={book.price}
+          isbn={book && book.isbn}
+          title={book && book.title}
+          price={book && book.price}
         />
         <Button
           style={{ marginLeft: "80px", backgroundColor: "green" }}
@@ -107,4 +121,3 @@ export default function BookEdit () {
     </div>
   );
 };
-
